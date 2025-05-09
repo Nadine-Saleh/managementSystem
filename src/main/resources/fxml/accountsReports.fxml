@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <AnchorPane prefHeight="544.0" prefWidth="71.0" style="-fx-background-color: #283618;" >
+         <children>
+            <Button layoutX="6.0" layoutY="38.0" mnemonicParsing="false" styleClass="nav-btn"  text="Button" />
+            <Button layoutX="8.0" layoutY="150.0" mnemonicParsing="false" styleClass="nav-btn"  text="Button" />
+            <Button layoutX="8.0" layoutY="241.0" mnemonicParsing="false" styleClass="nav-btn" text="Button" />
+            <Button layoutX="8.0" layoutY="337.0" mnemonicParsing="false" styleClass="nav-btn" text="Button" />
+         </children>
+         <styleClass>
+            <String fx:value="nav-form" />
+            <String fx:value="nav-form" />
+         </styleClass>
+      </AnchorPane>
+      <AnchorPane layoutX="72.0" prefHeight="74.0" prefWidth="687.0" style="-fx-background-color: #FEFAE0;">
+         <children>
+            <Label layoutX="2.0" layoutY="7.0" prefHeight="34.0" prefWidth="264.0" text="Account Reports">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="76.0" layoutY="43.0" prefHeight="500.0" prefWidth="687.0" style="-fx-background-color: FEFAE0;">
+         <children>
+            <TableView layoutX="5.0" layoutY="36.0" prefHeight="450.0" prefWidth="668.0">
+               <columns>
+                  <TableColumn prefWidth="112.00000762939453" text="Customer Name" />
+                  <TableColumn prefWidth="134.39996337890625" text="     opening Balance">
+                     <columns>
+                        <TableColumn minWidth="0.800048828125" prefWidth="62.39996337890625" text="Debit" />
+                        <TableColumn prefWidth="89.60003662109375" text="Credit" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="138.4000244140625" text="           Transactions">
+                     <columns>
+                        <TableColumn prefWidth="73.5999755859375" text="Debit" />
+                        <TableColumn prefWidth="79.20001220703125" text="Credit" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="148.79995727539062" text="Current Balance">
+                     <columns>
+                        <TableColumn prefWidth="59.999969482421875" text="Debit " />
+                        <TableColumn prefWidth="73.5999755859375" text="Credit" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="140.800048828125" text="Account Statement" />
+               </columns>
+            </TableView>
+            <TextField layoutY="2.0" promptText="Search for Customers" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
