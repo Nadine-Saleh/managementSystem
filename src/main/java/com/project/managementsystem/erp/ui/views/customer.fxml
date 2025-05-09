@@ -6,33 +6,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="486.0" prefWidth="343.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="486.0" prefWidth="354.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="customer_name" layoutX="38.0" layoutY="122.0" prefHeight="26.0" prefWidth="212.0" promptText="name" />
-      <Label layoutX="38.0" layoutY="86.0" prefHeight="36.0" prefWidth="132.0" text="Name">
+      <TextField fx:id="customer_name" layoutX="8.0" layoutY="122.0" prefHeight="26.0" prefWidth="212.0" promptText="name" />
+      <Label layoutX="8.0" layoutY="86.0" prefHeight="36.0" prefWidth="132.0" text="Name">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="162.0" prefHeight="36.0" prefWidth="132.0" text="E-mail">
+      <Label layoutX="8.0" layoutY="162.0" prefHeight="36.0" prefWidth="132.0" text="address">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="225.0" prefHeight="36.0" prefWidth="132.0" text="Balance">
+      <Label layoutX="8.0" layoutY="225.0" prefHeight="36.0" prefWidth="132.0" text="Balance">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="287.0" prefHeight="36.0" prefWidth="132.0" text="Phone number">
+      <Label layoutX="14.0" layoutY="287.0" prefHeight="36.0" prefWidth="132.0" text="Phone number">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="customerPhone" layoutX="38.0" layoutY="323.0" prefHeight="26.0" prefWidth="212.0" promptText="phone number" />
-      <TextField fx:id="b" layoutX="38.0" layoutY="254.0" prefHeight="26.0" prefWidth="212.0" promptText="balance" />
-      <TextField fx:id="customer_address" layoutX="38.0" layoutY="191.0" prefHeight="26.0" prefWidth="212.0" promptText="address" />
-      <Button fx:id="add_btn" layoutX="80.0" layoutY="384.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" style="-fx-background-color: DDA15E;" text="Add" />
+      <TextField fx:id="customerPhone" layoutX="8.0" layoutY="323.0" prefHeight="26.0" prefWidth="212.0" promptText="phone number" />
+      <TextField fx:id="Balance" layoutX="8.0" layoutY="254.0" prefHeight="26.0" prefWidth="212.0" promptText="balance" />
+      <TextField fx:id="customer_address" layoutX="8.0" layoutY="191.0" prefHeight="26.0" prefWidth="212.0" promptText="address" />
+      <Button fx:id="add_btn" layoutX="80.0" layoutY="384.0" mnemonicParsing="false"  prefHeight="26.0" prefWidth="194.0" style="-fx-background-color: DDA15E;" text="Add" />
       <Label layoutX="12.0" layoutY="6.0" prefHeight="36.0" prefWidth="202.0" text="Add new customer">
          <font>
             <Font name="System Bold" size="20.0" />
