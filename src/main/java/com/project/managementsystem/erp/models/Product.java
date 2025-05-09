@@ -3,7 +3,7 @@ package com.project.managementsystem.erp.models;
 /**
  * Represents a Product in the ERP system.
  */
-public class product {
+public class Product {
 
     private int id;
     private String name;
@@ -11,23 +11,20 @@ public class product {
     private int quantity;
     private String category;
     private String unit;
-    private Integer supplierId; // Nullable
     private String createdAt;
 
     /**
      * Full constructor for creating a Product object.
      */
-    public product(int id, String name,
-                   double price, int quantity,  String category,
-                   String unit, Integer supplierId,
+    public Product(String name,
+                   double price, int quantity, String category,
+                   String unit,
                    String createdAt) {
-        this.id = id;
         this.name = name;
         this.price = price;
-        this.category = category;
         this.quantity=quantity;
+        this.category = category;
         this.unit = unit;
-        this.supplierId = supplierId;
         this.createdAt = createdAt;
     }
 
@@ -89,13 +86,7 @@ public class product {
         this.unit = unit;
     }
 
-    public Integer getSupplierId() {
-        return supplierId;
-    }
 
-    public void setSupplierId(Integer supplierId) {
-        this.supplierId = supplierId;
-    }
 
 
 
@@ -118,7 +109,6 @@ public class product {
                 ", stock=" + quantity +
                 ", category='" + category + '\'' +
                 ", unitOfMeasure='" + unit + '\'' +
-                ", supplierId=" + supplierId +
                 ", createdAt='" + createdAt + '\'' +
                 '}';
     }

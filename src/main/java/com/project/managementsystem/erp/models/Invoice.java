@@ -5,7 +5,7 @@ import java.sql.Date;
 /**
  * Represents an Invoice in the ERP system.
  */
-public class invoice {
+public class Invoice {
 
     private int id;
     private String invoiceNumber;
@@ -61,10 +61,10 @@ public class invoice {
 
 
     // Default constructor (required by frameworks like JavaFX and ORMs)
-    public invoice() {}
+    public Invoice() {}
 
     // Full constructor
-    public invoice(int id, int customerId, Date createdAt, double totalAmount) {
+    public Invoice(int id, int customerId, Date createdAt, double totalAmount) {
         this.id = id;
         this.customerId = customerId;
         this.createdAt = createdAt;

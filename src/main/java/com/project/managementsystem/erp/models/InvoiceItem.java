@@ -3,7 +3,7 @@ package com.project.managementsystem.erp.models;
 /**
  * Represents an item in an invoice.
  */
-public class invoiceItem {
+public class InvoiceItem {
     private int id;
     private int invoiceId;
     private int productId;
@@ -12,10 +12,10 @@ public class invoiceItem {
     private double subtotal;
 
     // Default constructor (required by frameworks like JavaFX and ORMs)
-    public invoiceItem() {}
+    public InvoiceItem() {}
 
     // Full constructor
-    public invoiceItem(int id, int invoiceId, int productId, int quantity, double unitPrice, double subtotal) {
+    public InvoiceItem(int id, int invoiceId, int productId, int quantity, double unitPrice, double subtotal) {
         this.id = id;
         this.invoiceId = invoiceId;
         this.productId = productId;

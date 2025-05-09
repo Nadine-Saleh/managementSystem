@@ -23,16 +23,12 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the main view from FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProductView.fxml"));
         Scene scene = new Scene(loader.load());
 
         // Configure the primary stage
         primaryStage.setTitle("ERP Admin Dashboard");
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1000);
-        primaryStage.setHeight(700);
-        primaryStage.setMinWidth(800);
-        primaryStage.setMinHeight(600);
         primaryStage.centerOnScreen();
         primaryStage.setResizable(true);
 
