@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 /**
  * DBConnection class handles the connection to the SQLite database.
+ * singleton
  */
 public class DBConnection {
 
