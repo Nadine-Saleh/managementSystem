@@ -20,7 +20,7 @@ public class ERPSystemFacade {
     // Services
   private final ProductService productService;
 //    private final DefaultInventoryService inventoryService;
-    private final AddCustomerService addcustomerService;
+//    private final DefaultCustomerService customerService;
 //    private final DefaultInvoiceService invoiceService;
 
     /**
@@ -29,7 +29,7 @@ public class ERPSystemFacade {
     public ERPSystemFacade() {
         this.productService = new ProductService();
 //        this.inventoryService = new DefaultInventoryService(new InventoryDAOImpl());
-        this.addcustomerService = new AddCustomerService();
+//        this.customerService = new DefaultCustomerService(new CustomerDAOImpl());
 //        this.invoiceService = new DefaultInvoiceService(new InvoiceDAOImpl());
     }
 
@@ -67,24 +67,24 @@ public class ERPSystemFacade {
 
     // === CUSTOMER METHODS ===
 
-    public void addCustomer(Customer customer) {
-        addcustomerService.addCustomer(customer);
-    }
-
+//    public void addCustomer(Customer customer) {
+////        customerService.save(customer);
+//    }
+//
 //    public Customer getCustomerById(int id) {
-//        return addcustomerService.getById(id);
+////        return customerService.getById(id);
 //    }
 //
 //    public List<Customer> getAllCustomers() {
-//        return addcustomerService.getAll();
+////        return customerService.getAll();
 //    }
 //
 //    public void updateCustomer(Customer customer) {
-//        addcustomerService.update(customer);
+////        customerService.update(customer);
 //    }
 //
 //    public void deleteCustomer(int id) {
-//        addcustomerService.delete(id);
+////        customerService.delete(id);
 //    }
 
     // === INVOICE METHODS ===
@@ -93,9 +93,9 @@ public class ERPSystemFacade {
 ////        invoiceService.save(invoice);
 //    }
 //
-
+//// 根据id获取发票
 //  public Invoice getInvoiceById(int id) {
-//        // invoiceService的getById方法，根据id获取发票
+//        // 调用invoiceService的getById方法，根据id获取发票
 //        return invoiceService.getById(id);
 //    }
 //
