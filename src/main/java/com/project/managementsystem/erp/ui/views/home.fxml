@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="542.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.managementsystem.erp.ui.controllers.homeController">
+   <children>
+      <AnchorPane prefHeight="544.0" prefWidth="86.0" />
+      <AnchorPane layoutX="87.0" prefHeight="46.0" prefWidth="658.0" style="-fx-background-color: #FEFAE0;">
+         <children>
+            <Label layoutX="12.0" layoutY="3.0" prefHeight="39.0" prefWidth="158.0" text="        Home">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="158.0" layoutY="115.0" prefHeight="359.0" prefWidth="482.0" style="-fx-background-color: #FEFAE0;">
+         <children>
+            <StackPane layoutY="15.0" prefHeight="90.0" prefWidth="131.0">
+               <children>
+                  <Button fx:id="customer" mnemonicParsing="false"  prefHeight="92.0" prefWidth="104.0" style="-fx-background-color: transparent;" />
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
