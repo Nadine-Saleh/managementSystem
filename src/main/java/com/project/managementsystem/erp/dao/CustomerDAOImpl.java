@@ -27,9 +27,9 @@ public class CustomerDAOImpl implements CustomerDAO {
              PreparedStatement stmt = connection.prepareStatement(INSERT_CUSTOMER, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, customer.getName());
-            stmt.setString(2, customer.getPhone());
+            stmt.setString(2, customer.getEmail());
             stmt.setString(3, customer.getBalance());
-            stmt.setString(4, customer.getEmail());
+            stmt.setString(4, customer.getPhone());
 
             int affectedRows = stmt.executeUpdate();
 
