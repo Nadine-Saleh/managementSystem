@@ -10,6 +10,7 @@ public class LineItem {
     private String type;
     public LineItem() {}
 
+
     // For new line items
     public LineItem(int invoiceId, int productId, String productName, int quantity, double unitPrice, String type) {
         this.invoiceId = invoiceId;
