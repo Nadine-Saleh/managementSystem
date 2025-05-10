@@ -12,6 +12,9 @@ public class Inventory {
     private int referenceId;    // ID of related transaction/order
     private String timestamp;
 
+    public Inventory(int id, int productId, int quantityChange, int currentStock, String changeType, int referenceId, String timestamp) {
+    }
+
     public int getProductId() {
         return productId;
     }
