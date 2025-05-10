@@ -14,7 +14,7 @@ public interface LineItemDAO {
 
     LineItem getLineItemById(int id);
 
-    List<LineItem> getLineItemsByInvoiceId(int invoiceId);
+    List<LineItem> getLineItemsByInvoiceId(int invoiceId , String type);
 
     List<LineItem> getAllLineItems();
 }

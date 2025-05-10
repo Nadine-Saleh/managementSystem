@@ -64,5 +64,5 @@ public interface InventoryDAO {
      * @param referenceType   Reference type (e.g., "sales_order")
      * @param referenceId     Reference ID (e.g., order ID)
      */
-//    static void adjustStock(int productId, int change, String changeType, String referenceType, int referenceId);
+     void adjustStock(int productId, int change, String changeType, String referenceType, int referenceId);
 }
