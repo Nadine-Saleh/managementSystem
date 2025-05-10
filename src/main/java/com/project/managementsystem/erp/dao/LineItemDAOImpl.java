@@ -1,7 +1,6 @@
 package com.project.managementsystem.erp.dao;
 
 import com.project.managementsystem.erp.config.DBConnection;
-import com.project.managementsystem.erp.dao.LineItemDAO;
 import com.project.managementsystem.erp.models.LineItem;
 
 import java.sql.*;
