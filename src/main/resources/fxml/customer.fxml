@@ -31,7 +31,7 @@
       </Label>
       <TextField fx:id="phoneField" layoutX="38.0" layoutY="323.0" prefHeight="26.0" prefWidth="212.0" promptText="phone number" />
       <TextField fx:id="balanceField" layoutX="38.0" layoutY="254.0" prefHeight="26.0" prefWidth="212.0" promptText="balance" />
-      <TextField fx:id="emailField" layoutX="38.0" layoutY="191.0" prefHeight="26.0" prefWidth="212.0" promptText="address" />
+      <TextField fx:id="emailField" layoutX="38.0" layoutY="191.0" prefHeight="26.0" prefWidth="212.0" promptText="email" />
       <Button fx:id="saveButton" layoutX="80.0" layoutY="384.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" onAction="#handleSaveCustomer" style="-fx-background-color: DDA15E;" text="Add" />
       <Label layoutX="12.0" layoutY="6.0" prefHeight="36.0" prefWidth="202.0" text="Add new customer">
          <font>
