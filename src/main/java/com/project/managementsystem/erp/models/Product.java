@@ -1,5 +1,7 @@
 package com.project.managementsystem.erp.models;
 
+import java.util.List;
+
 /**
  * Represents a Product in the ERP system.
  */
@@ -12,6 +14,8 @@ public class Product {
     private String category;
     private String unit;
     private String createdAt;
+    private List<LineItem> items;
+
 
     /**
      * Full constructor for creating a Product object.

@@ -1,6 +1,7 @@
 package com.project.managementsystem.erp.models;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Represents an Invoice in the ERP system.
@@ -13,7 +14,37 @@ public class Invoice {
     private String dueDate;
     private String paymentStatus;
     private int customerId;
+    private String customerName;
     private Date createdAt;
+    private String Type;
+    private List<LineItem> items;
+    public List<LineItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<LineItem> items) {
+        this.items = items;
+    }
+
+
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
+    }
+
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
     private double totalAmount;
 
     public Date getCreatedAt() {
