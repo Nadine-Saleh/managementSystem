@@ -10,7 +10,11 @@ public class LineItem {
     private String type;
     public LineItem() {}
 
-
+  public void setProduct(Product product) {
+        this.productId = product.getId();
+        this.productName = product.getName();
+        this.unitPrice = product.getPrice();
+    }
     // For new line items
     public LineItem(int invoiceId, int productId, String productName, int quantity, double unitPrice, String type) {
         this.invoiceId = invoiceId;
