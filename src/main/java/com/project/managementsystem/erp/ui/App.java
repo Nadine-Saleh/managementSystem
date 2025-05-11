@@ -23,7 +23,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the main view from FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/customer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/payment.fxml"));
         Scene scene = new Scene(loader.load());
 
         // Configure the primary stage
