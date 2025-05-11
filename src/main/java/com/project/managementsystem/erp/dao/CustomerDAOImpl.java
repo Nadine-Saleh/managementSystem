@@ -48,6 +48,30 @@ public class CustomerDAOImpl implements CustomerDAO {
             throw new RuntimeException("Error saving customer", e);
         }
     }
+public List<Customer> getAll() {
+    List<Customer> customers = new ArrayList<>();
+    String query = "SELECT * FROM Customers";
+
+    try (Connection connection = DBConnection.getConnection();
+         Statement stmt = connection.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        while (rs.next()) {
+            customers.add(new Customer(
+                    rs.getInt("id"),
+                    rs.getString("Name"),
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getString("balance") // assuming balance is stored as REAL in DB
+            ));
+        }
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Error fetching all customers", e);
+    }
+
+    return customers;
+}
 
     @Override
     public void updateCustomer(Customer customer) {
