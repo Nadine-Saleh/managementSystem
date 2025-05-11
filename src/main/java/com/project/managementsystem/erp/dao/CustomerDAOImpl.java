@@ -1,7 +1,6 @@
 package com.project.managementsystem.erp.dao;
 
 import com.project.managementsystem.erp.config.DBConnection;
-import com.project.managementsystem.erp.dao.CustomerDAO;
 import com.project.managementsystem.erp.models.Customer;
 
 import java.sql.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class CustomerDAOImpl implements CustomerDAO {
 
     // SQL Statements
-    private static final String INSERT_CUSTOMER = "INSERT INTO customers(name, email, phone, balance) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_CUSTOMER = "INSERT INTO customers(name, email, balance, phone) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_CUSTOMER = "UPDATE customers SET name = ?, email = ?, phone = ?, balance = ? WHERE id = ?";
     private static final String DELETE_CUSTOMER = "DELETE FROM customers WHERE id = ?";
     private static final String SELECT_CUSTOMER_BY_ID = "SELECT * FROM customers WHERE id = ?";
@@ -27,9 +26,9 @@ public class CustomerDAOImpl implements CustomerDAO {
              PreparedStatement stmt = connection.prepareStatement(INSERT_CUSTOMER, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, customer.getName());
-            stmt.setString(2, customer.getPhone());
+            stmt.setString(2, customer.getEmail());
             stmt.setString(3, customer.getBalance());
-            stmt.setString(4, customer.getEmail());
+            stmt.setString(4, customer.getPhone());
 
             int affectedRows = stmt.executeUpdate();
 

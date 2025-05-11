@@ -1,7 +1,5 @@
 package com.project.managementsystem.erp.facade;
 
-import com.project.managementsystem.erp.dao.*;
-
 
 import com.project.managementsystem.erp.services.*;
 
@@ -20,7 +18,7 @@ public class ERPSystemFacade {
     // Services
   private final ProductService productService;
 //    private final DefaultInventoryService inventoryService;
-//    private final DefaultCustomerService customerService;
+    private final AddCustomerService addcustomerService;
 //    private final DefaultInvoiceService invoiceService;
 
     /**
@@ -29,7 +27,7 @@ public class ERPSystemFacade {
     public ERPSystemFacade() {
         this.productService = new ProductService();
 //        this.inventoryService = new DefaultInventoryService(new InventoryDAOImpl());
-//        this.customerService = new DefaultCustomerService(new CustomerDAOImpl());
+        this.addcustomerService = new AddCustomerService();
 //        this.invoiceService = new DefaultInvoiceService(new InvoiceDAOImpl());
     }
 
@@ -67,24 +65,24 @@ public class ERPSystemFacade {
 
     // === CUSTOMER METHODS ===
 
-//    public void addCustomer(Customer customer) {
-////        customerService.save(customer);
-//    }
-//
+    public void addCustomer(Customer customer) {
+        addcustomerService.addCustomer(customer);
+    }
+
 //    public Customer getCustomerById(int id) {
-////        return customerService.getById(id);
+//        return addcustomerService.getById(id);
 //    }
 //
 //    public List<Customer> getAllCustomers() {
-////        return customerService.getAll();
+//        return addcustomerService.getAll();
 //    }
 //
 //    public void updateCustomer(Customer customer) {
-////        customerService.update(customer);
+//        addcustomerService.update(customer);
 //    }
 //
 //    public void deleteCustomer(int id) {
-////        customerService.delete(id);
+//        addcustomerService.delete(id);
 //    }
 
     // === INVOICE METHODS ===
@@ -93,9 +91,9 @@ public class ERPSystemFacade {
 ////        invoiceService.save(invoice);
 //    }
 //
-//// 根据id获取发票
+
 //  public Invoice getInvoiceById(int id) {
-//        // 调用invoiceService的getById方法，根据id获取发票
+//        // invoiceService的getById方法，根据id获取发票
 //        return invoiceService.getById(id);
 //    }
 //
