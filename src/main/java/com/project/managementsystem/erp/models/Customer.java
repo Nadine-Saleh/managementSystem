@@ -13,11 +13,12 @@ public class Customer {
     public Customer() {}
 
     // Full constructor
-    public Customer(int id, String name, String email, String phone) {
+    public Customer(int id, String name, String email, String phone,String balance) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.balance = balance;
     }
 
     // Getters and Setters

@@ -64,11 +64,11 @@ public class Product {
 
 
 
-    public int getQuantity() {
-        return quantity;
-    }
+   public int getStock() {
+    return quantity;
+}
 
-    public void setQuantity(int quantity) {
+    public void setStock(int quantity) {
         this.quantity = quantity;
     }
 

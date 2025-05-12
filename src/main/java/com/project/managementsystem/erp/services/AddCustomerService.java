@@ -4,6 +4,7 @@ import com.project.managementsystem.erp.dao.CustomerDAO;
 import com.project.managementsystem.erp.dao.CustomerDAOImpl;
 import com.project.managementsystem.erp.models.Customer;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class AddCustomerService {
@@ -26,6 +27,7 @@ public class AddCustomerService {
         String balanceStr = customer.getBalance(); // Assuming getBalance() returns String
         String phone = customer.getPhone();
 
+         
         // Validate input
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty.");
@@ -56,7 +58,9 @@ public class AddCustomerService {
             return false;
         }
     }
-
+    public List<Customer> getAllCustomers() {
+        return customerDAO.getAllCustomers(); // Fetches all customers from DB
+    }
     /**
      * Validates email using simple regex pattern.
      */

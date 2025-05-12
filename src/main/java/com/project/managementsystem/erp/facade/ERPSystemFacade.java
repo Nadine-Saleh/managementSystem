@@ -17,7 +17,7 @@ public class ERPSystemFacade {
 
     // Services
   private final ProductService productService;
-//    private final DefaultInventoryService inventoryService;
+  private final PaymentService paymentService;
     private final AddCustomerService addcustomerService;
 //    private final DefaultInvoiceService invoiceService;
 
@@ -26,6 +26,7 @@ public class ERPSystemFacade {
      */
     public ERPSystemFacade() {
         this.productService = new ProductService();
+        this.paymentService = new PaymentService();
 //        this.inventoryService = new DefaultInventoryService(new InventoryDAOImpl());
         this.addcustomerService = new AddCustomerService();
 //        this.invoiceService = new DefaultInvoiceService(new InvoiceDAOImpl());
@@ -53,6 +54,11 @@ public class ERPSystemFacade {
 //        productService.delete(id);
     }
 
+    // === PAYMENT METHODS ===
+
+    public void addPayment(Payment payment) {
+        paymentService.addPayment(payment);
+    }
     // === INVENTORY METHODS ===
 
 //    public void updateInventory(Inventory inventory) {
@@ -68,14 +74,15 @@ public class ERPSystemFacade {
     public void addCustomer(Customer customer) {
         addcustomerService.addCustomer(customer);
     }
+    
 
 //    public Customer getCustomerById(int id) {
 //        return addcustomerService.getById(id);
 //    }
 //
-//    public List<Customer> getAllCustomers() {
-//        return addcustomerService.getAll();
-//    }
+   public List<Customer> getAllCustomers() {
+       return addcustomerService.getAllCustomers();
+   }
 //
 //    public void updateCustomer(Customer customer) {
 //        addcustomerService.update(customer);
