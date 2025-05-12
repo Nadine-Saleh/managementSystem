@@ -25,7 +25,7 @@
                <children>
                   <ImageView fitHeight="89.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/invoicing-management-1.png" />
+                        <Image url="@../Images/invoicing-management-1.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -35,7 +35,7 @@
                <children>
                   <ImageView fitHeight="77.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/bi_customer_progress_billing.png" />
+                        <Image url="@../Images/bi_customer_progress_billing.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -45,7 +45,7 @@
                <children>
                   <ImageView fitHeight="61.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/add-product-line-icon-vector.jpg" />
+                        <Image url="@../Images/add-product-line-icon-vector.jpg" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -55,7 +55,7 @@
                <children>
                   <ImageView fitHeight="84.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/checkout-payment-icon-free-vector.jpg" />
+                        <Image url="@../Images/checkout-payment-icon-free-vector.jpg" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -65,7 +65,7 @@
                <children>
                   <ImageView fitHeight="66.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/invoices.png" />
+                        <Image url="@../Images/invoices.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="84.0" style="-fx-background-color: transparent;" />
@@ -75,7 +75,7 @@
                <children>
                   <ImageView fitHeight="64.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/addUser2.jpg" />
+                        <Image url="@../Images/addUser2.jpg" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -85,7 +85,7 @@
                <children>
                   <ImageView fitHeight="75.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/bi_customer_progress_billing.png" />
+                        <Image url="@../Images/bi_customer_progress_billing.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -95,7 +95,7 @@
                <children>
                   <ImageView fitHeight="89.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/invoicing-management-1.png" />
+                        <Image url="@../Images/invoicing-management-1.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
@@ -105,7 +105,7 @@
                <children>
                   <ImageView fitHeight="61.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../resources/Images/invoices.png" />
+                        <Image url="@../Images/invoices.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="129.0" style="-fx-background-color: transparent;" />
