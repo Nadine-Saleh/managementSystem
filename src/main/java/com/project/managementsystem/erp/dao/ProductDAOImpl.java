@@ -17,7 +17,7 @@ public class ProductDAOImpl implements ProductDAO {
     private static final String INSERT_PRODUCT = "INSERT INTO Product(name, price, quantity, category, unit, createdAt) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_PRODUCT_BY_ID = "SELECT * FROM Product WHERE id = ?";
     private static final String SELECT_ALL_PRODUCTS = "SELECT * FROM Product";
-    private static final String UPDATE_PRODUCT = "UPDATE Product SET name = ?, price = ?, quantity = ?, category = ?, unit = ?, created_at = ? WHERE id = ?";
+    private static final String UPDATE_PRODUCT = "UPDATE Product SET name = ?, price = ?, quantity = ?, category = ?, unit = ?, createdAt = ? WHERE id = ?";
     private static final String DELETE_PRODUCT = "DELETE FROM Product WHERE id = ?";
 
     /**
@@ -33,7 +33,7 @@ public class ProductDAOImpl implements ProductDAO {
 
             stmt.setString(1, product.getName());
             stmt.setDouble(2, product.getPrice());
-            stmt.setInt(3, product.getQuantity());
+            stmt.setInt(3, product.getStock());
             stmt.setString(4, product.getCategory());
             stmt.setString(5, product.getUnit());
             stmt.setString(6, product.getCreatedAt());
@@ -104,7 +104,7 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getInt("quantity"),
                         rs.getString("category"),
                         rs.getString("unit"),
-                        rs.getString("created_at")
+                        rs.getString("createdAt")
                 );
                 products.add(product);
             }
@@ -125,7 +125,7 @@ public class ProductDAOImpl implements ProductDAO {
 
             stmt.setString(1, product.getName());
             stmt.setDouble(2, product.getPrice());
-            stmt.setInt(3, product.getQuantity());
+            stmt.setInt(3, product.getStock());
             stmt.setString(4, product.getCategory());
             stmt.setString(5, product.getUnit());
             stmt.setString(6, product.getCreatedAt());

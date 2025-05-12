@@ -9,11 +9,11 @@ import java.util.List;
 
 public class LineItemDAOImpl implements LineItemDAO {
 
-    private static final String INSERT_LINE_ITEM = "INSERT INTO line_items(invoice_id, product_id, product_name, quantity, unit_price, total, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_LINE_ITEM = "UPDATE line_items SET quantity = ?, unit_price = ?, total = ? WHERE id = ?";
-    private static final String DELETE_LINE_ITEM = "DELETE FROM line_items WHERE id = ?";
-    private static final String SELECT_LINE_ITEM_BY_ID = "SELECT * FROM line_items WHERE id = ?";
-    private static final String SELECT_LINE_ITEMS_BY_INVOICE = "SELECT * FROM line_items WHERE invoice_id = ? AND type = ?";
+    private static final String INSERT_LINE_ITEM = "INSERT INTO LineItem(invoiceId, productId, productName, quantity, unitPrice, total, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_LINE_ITEM = "UPDATE LineItem SET quantity = ?, unit_price = ?, total = ? WHERE id = ?";
+    private static final String DELETE_LINE_ITEM = "DELETE FROM LineItem WHERE id = ?";
+    private static final String SELECT_LINE_ITEM_BY_ID = "SELECT * FROM LineItem WHERE id = ?";
+    private static final String SELECT_LINE_ITEMS_BY_INVOICE = "SELECT * FROM LineItem WHERE invoiceId = ? AND type = ?";
 
     @Override
     public void addLineItem(LineItem item) {

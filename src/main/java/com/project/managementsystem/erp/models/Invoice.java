@@ -1,6 +1,7 @@
 package com.project.managementsystem.erp.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -10,14 +11,15 @@ public class Invoice {
 
     private int id;
     private String invoiceNumber;
-    private String issueDate;
+    private LocalDate issueDate;
     private String dueDate;
     private String paymentStatus;
     private int customerId;
     private String customerName;
-    private Date createdAt;
+    private LocalDate createdAt;
     private String Type;
     private List<LineItem> items;
+    private Customer customer;
     public List<LineItem> getItems() {
         return items;
     }
@@ -25,7 +27,12 @@ public class Invoice {
     public void setItems(List<LineItem> items) {
         this.items = items;
     }
-
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+public Customer getCustomer() {
+        return customer;
+    }   
 
 
     public String getType() {
@@ -47,11 +54,11 @@ public class Invoice {
 
     private double totalAmount;
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -65,11 +72,11 @@ public class Invoice {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
@@ -95,13 +102,19 @@ public class Invoice {
     public Invoice() {}
 
     // Full constructor
-    public Invoice(int id, int customerId, Date createdAt, double totalAmount) {
+    public Invoice(int id, int customerId, LocalDate createdAt, double totalAmount) {
         this.id = id;
         this.customerId = customerId;
         this.createdAt = createdAt;
         this.totalAmount = totalAmount;
     }
-
+public Invoice(int id, int customerId, String customerName, LocalDate createdAt, double totalAmount) {
+    this.id = id;
+    this.customerId = customerId;
+    this.customerName = customerName;
+    this.createdAt = createdAt;
+    this.totalAmount = totalAmount;
+}
     // Getters and Setters
 
     public int getId() {

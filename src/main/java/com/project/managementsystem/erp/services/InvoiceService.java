@@ -3,7 +3,11 @@ package com.project.managementsystem.erp.services;
 import com.project.managementsystem.erp.dao.*;
 import com.project.managementsystem.erp.models.Invoice;
 import com.project.managementsystem.erp.models.LineItem;
+import com.project.managementsystem.erp.models.Customer;
+import com.project.managementsystem.erp.models.Product;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -141,4 +145,37 @@ public class InvoiceService {
             }
         }
     }
+
+    /**
+     * Saves an invoice along with its line items and updates inventory.
+     *
+     * @param customer The customer associated with the invoice.
+     * @param date The date of the invoice.
+     * @param lineItems The list of line items in the invoice.
+     * @throws Exception If there is an error during the save process.
+     */
+ public void saveInvoice(Customer customer, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
+    try {
+        Invoice invoice = new Invoice();
+        invoice.setCustomer(customer);
+        invoice.setCustomerName(customer.getName()); // ← SET CUSTOMER NAME HERE
+        invoice.setCreatedAt(date);
+        invoice.setItems(lineItems);
+        invoice.setType(type);
+
+        double totalAmount = lineItems.stream().mapToDouble(LineItem::getTotal).sum();
+        invoice.setTotalAmount(totalAmount);
+
+        int invoiceId = invoiceDAO.save(invoice); // Should now work
+
+        for (LineItem lineItem : lineItems) {
+            lineItem.setInvoiceId(invoiceId);
+            lineItemDAO.addLineItem(lineItem);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        throw new Exception("Failed to save the invoice: " + e.getMessage(), e);
+    }
 }
+    }

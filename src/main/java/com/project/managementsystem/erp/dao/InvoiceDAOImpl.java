@@ -5,6 +5,7 @@ import com.project.managementsystem.erp.dao.InvoiceDAO;
 import com.project.managementsystem.erp.models.Invoice;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
      * Adds a new invoice to the database.
      */
     @Override
-    public void save(Invoice invoice) {
+    public int save(Invoice invoice) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(INSERT_INVOICE, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -42,7 +43,9 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    invoice.setId(generatedKeys.getInt(1));
+                    int generatedId = generatedKeys.getInt(1);
+                    invoice.setId(generatedId);
+                    return generatedId;
                 } else {
                     throw new RuntimeException("Creating invoice failed, no ID obtained.");
                 }
@@ -171,7 +174,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         Invoice invoice = new Invoice();
         invoice.setId(rs.getInt("id"));
         invoice.setCustomerName(rs.getString("customer_name"));
-        invoice.setCreatedAt(Date.valueOf(rs.getString("date")));
+        invoice.setCreatedAt(LocalDate.parse(rs.getString("date")));
         invoice.setTotalAmount(rs.getDouble("total_amount"));
         invoice.setType(rs.getString("type"));
 
