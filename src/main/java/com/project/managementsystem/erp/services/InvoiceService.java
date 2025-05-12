@@ -154,22 +154,23 @@ public class InvoiceService {
      * @param lineItems The list of line items in the invoice.
      * @throws Exception If there is an error during the save process.
      */
- public void saveInvoice(Customer customer, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
+public void saveInvoice(Customer customer, LocalDate date, List<LineItem> lineItems, String type) throws Exception {
     try {
         Invoice invoice = new Invoice();
         invoice.setCustomer(customer);
-        invoice.setCustomerName(customer.getName()); // ← SET CUSTOMER NAME HERE
+        invoice.setCustomerName(customer.getName());
         invoice.setCreatedAt(date);
         invoice.setItems(lineItems);
-        invoice.setType(type);
+        invoice.setType(type); // ← Now you can set the type
 
         double totalAmount = lineItems.stream().mapToDouble(LineItem::getTotal).sum();
         invoice.setTotalAmount(totalAmount);
 
-        int invoiceId = invoiceDAO.save(invoice); // Should now work
+        int invoiceId = invoiceDAO.save(invoice); // Save and get ID
 
         for (LineItem lineItem : lineItems) {
             lineItem.setInvoiceId(invoiceId);
+            lineItem.setType(type); // Pass same type to each line item
             lineItemDAO.addLineItem(lineItem);
         }
 
