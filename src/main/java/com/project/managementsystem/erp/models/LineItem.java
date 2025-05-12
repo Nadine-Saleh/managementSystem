@@ -1,20 +1,29 @@
 package com.project.managementsystem.erp.models;
+
 public class LineItem {
     private int id;
     private int invoiceId;      // Sales or Purchase ID
     private int productId;
+    private Product product;
     private String productName;
     private int quantity;
     private double unitPrice;
     private double total;
     private String type;
+
     public LineItem() {}
 
-  public void setProduct(Product product) {
+    public void setProduct(Product product) {
         this.productId = product.getId();
         this.productName = product.getName();
         this.unitPrice = product.getPrice();
+        this.product = product; // Set the product object
     }
+
+    public Product getProduct() {
+        return product; // Return the product object
+    }
+
     // For new line items
     public LineItem(int invoiceId, int productId, String productName, int quantity, double unitPrice, String type) {
         this.invoiceId = invoiceId;

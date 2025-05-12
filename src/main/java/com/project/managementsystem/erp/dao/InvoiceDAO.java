@@ -13,8 +13,9 @@ public interface InvoiceDAO {
      * Adds a new invoice to the database.
      *
      * @param invoice The Invoice object to save
+     * @return 
      */
-    void save(Invoice invoice);
+    int save(Invoice invoice);
 
     /**
      * Updates an existing invoice.
