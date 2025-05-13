@@ -5,6 +5,7 @@ import com.project.managementsystem.erp.models.Payment;
 import com.project.managementsystem.erp.models.PaymentWithCustomer;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
             stmt.setInt(1, payment.getInvoiceId());
             stmt.setDouble(2, payment.getAmount());
-            stmt.setDate(3, payment.getPaymentDate()); // ✅ Already java.sql.Date
+            stmt.setString(3, String.valueOf(payment.getPaymentDate()) ); // ✅ Already java.sql.Date
             stmt.setString(4, payment.getMethod());
             stmt.setString(5, payment.getStatus());
             stmt.setString(6, payment.getReference());
@@ -93,7 +94,7 @@ public class PaymentDAOImpl implements PaymentDAO {
                         rs.getInt("id"),
                         rs.getInt("invoice_id"),
                         rs.getDouble("amount"),
-                        rs.getDate("payment_date"),
+                        rs.getDate("payment_date").toLocalDate(),
                         rs.getString("method"),
                         rs.getString("status"),
                         rs.getString("reference")
@@ -124,11 +125,10 @@ public List<Payment> getAll() {
             payment.setInvoiceId(rs.getInt("invoice_id"));
             payment.setAmount(rs.getDouble("amount"));
 
-            // If using DATE type directly, use:
-            payment.setPaymentDate(rs.getDate("payment_date"));
+           
 
             // If using formatted_date from view:
-            java.sql.Date formattedDate = java.sql.Date.valueOf(rs.getString("formatted_date"));
+            LocalDate formattedDate = rs.getDate("formatted_date").toLocalDate(); ;
             payment.setPaymentDate(formattedDate);
 
             payment.setMethod(rs.getString("method"));
@@ -184,7 +184,7 @@ public List<Payment> getAll() {
 
             stmt.setInt(1, payment.getInvoiceId());
             stmt.setDouble(2, payment.getAmount());
-            stmt.setDate(3, new java.sql.Date(payment.getPaymentDate().getTime()));
+            stmt.setDate(3, payment.getPaymentDate() != null ? Date.valueOf(payment.getPaymentDate()) : null);
             stmt.setString(4, payment.getMethod());
             stmt.setString(5, payment.getStatus());
             stmt.setString(6, payment.getReference());

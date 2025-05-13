@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="407.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="407.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.managementsystem.erp.ui.controllers.PaymentController">
    <children>
       <AnchorPane layoutX="3.0" layoutY="4.0" prefHeight="400.0" prefWidth="273.0" style="-fx-background-color: FEFAE0;">
          <children>
@@ -19,7 +19,7 @@
             <DatePicker fx:id="datepickerpay" layoutX="19.0" layoutY="81.0" prefHeight="26.0" prefWidth="232.0" />
             <ComboBox fx:id="Methodcombopay" layoutX="23.0" layoutY="143.0" prefHeight="26.0" prefWidth="226.0" promptText="Choose Method" />
             <ComboBox fx:id="customernamecombopay" layoutX="22.0" layoutY="200.0" prefHeight="26.0" prefWidth="226.0" promptText="select" />
-            <TextField fx:id="amountfeildpay" layoutX="24.0" layoutY="259.0" prefHeight="26.0" prefWidth="226.0" promptText="Enter Amount" />
+            <TextField fx:id="amountfieldpay" layoutX="24.0" layoutY="259.0" prefHeight="26.0" prefWidth="226.0" promptText="Enter Amount" />
             <Label layoutX="71.0" layoutY="23.0" text=" Add New Payment">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />

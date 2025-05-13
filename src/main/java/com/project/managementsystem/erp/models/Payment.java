@@ -1,12 +1,13 @@
 package com.project.managementsystem.erp.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Payment {
     private int id;
     private int invoiceId;
     private double amount;
-    private Date paymentDate;
+    private LocalDate paymentDate;
     private String method;
     private String status;
     private String reference;
@@ -14,7 +15,7 @@ public class Payment {
         // Default constructor
     }
 
-    public Payment(int id, int invoiceId, double amount, Date paymentDate,
+    public Payment(int id, int invoiceId, double amount, LocalDate paymentDate,
                   String method, String status, String reference) {
         this.id = id;
         this.invoiceId = invoiceId;
@@ -35,8 +36,8 @@ public class Payment {
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
 
-    public Date getPaymentDate() { return paymentDate; }
-    public void setPaymentDate(Date paymentDate) { this.paymentDate = paymentDate; }
+    public LocalDate getPaymentDate() { return paymentDate; }
+    public void setPaymentDate(LocalDate paymentDate) { this.paymentDate = paymentDate; }
 
     public String getMethod() { return method; }
     public void setMethod(String method) { this.method = method; }
