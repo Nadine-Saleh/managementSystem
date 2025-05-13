@@ -20,29 +20,49 @@ import java.util.List;
 
 public class InvoiceController {
 
-    @FXML private ComboBox<String> customerComboBox;
-    @FXML private DatePicker datePicker;
-    @FXML private ComboBox<Product> productComboBox;
-    @FXML private TextField quantityField;
-    @FXML private TextField priceField;
-    @FXML private TextField amountField;
-    @FXML private Button addRowButton;
-    @FXML private TableView<LineItem> invoiceTable;
-    @FXML private TableColumn<LineItem, String> productCol;
-    @FXML private TableColumn<LineItem, Integer> quantityCol;
-    @FXML private TableColumn<LineItem, Double> priceCol;
-    @FXML private TableColumn<LineItem, Double> amountCol;
-    @FXML private TableColumn<LineItem, Void> removeCol;
-    @FXML private Label totalLabel;
-    @FXML private TextField creditField;
-    @FXML private TextField paidField;
-    @FXML private Label currentBalanceLabel;
-    @FXML private Button saveButton;
-    @FXML private Button cancelButton;
+    @FXML
+    private ComboBox<String> customerComboBox;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private ComboBox<Product> productComboBox;
+    @FXML
+    private TextField quantityField;
+    @FXML
+    private TextField priceField;
+    @FXML
+    private TextField amountField;
+    @FXML
+    private Button addRowButton;
+    @FXML
+    private TableView<LineItem> invoiceTable;
+    @FXML
+    private TableColumn<LineItem, String> productCol;
+    @FXML
+    private TableColumn<LineItem, Integer> quantityCol;
+    @FXML
+    private TableColumn<LineItem, Double> priceCol;
+    @FXML
+    private TableColumn<LineItem, Double> amountCol;
+    @FXML
+    private TableColumn<LineItem, Void> removeCol;
+    @FXML
+    private Label totalLabel;
+    @FXML
+    private TextField creditField;
+    @FXML
+    private TextField paidField;
+    @FXML
+    private Label currentBalanceLabel;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button cancelButton;
 
     private CustomerDAO customerDAO = new CustomerDAOImpl();
     private ProductDAO productDAO = new ProductDAOImpl();
-    private InvoiceService invoiceService = new InvoiceService(new InvoiceDAOImpl(), new LineItemDAOImpl(), new InventoryDAOImpl());
+    private InvoiceService invoiceService = new InvoiceService(new InvoiceDAOImpl(), new LineItemDAOImpl(),
+            new InventoryDAOImpl());
     private ObservableList<LineItem> lineItems = FXCollections.observableArrayList();
     private List<Customer> customers = new ArrayList<>();
     private List<Product> products = new ArrayList<>();
@@ -86,8 +106,10 @@ public class InvoiceController {
 
     private void setupInvoiceTable() {
         productCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductName()));
-        quantityCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
-        priceCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getUnitPrice()).asObject());
+        quantityCol.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+        priceCol.setCellValueFactory(
+                cellData -> new SimpleDoubleProperty(cellData.getValue().getUnitPrice()).asObject());
         amountCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTotal()).asObject());
 
         removeCol.setCellFactory(param -> new TableCell<>() {
@@ -130,7 +152,8 @@ public class InvoiceController {
                     double amount = product.getPrice() * qty;
                     amountField.setText(String.format("%.2f", amount));
                 }
-            } catch (NumberFormatException ignored) {}
+            } catch (NumberFormatException ignored) {
+            }
         });
     }
 
@@ -157,6 +180,7 @@ public class InvoiceController {
             }
 
             LineItem lineItem = new LineItem();
+            lineItem.setProductId(product.getId()); // ✅ Critical
             lineItem.setProduct(product);
             lineItem.setQuantity(qty);
             lineItem.setTotal(qty * product.getPrice());
@@ -173,6 +197,7 @@ public class InvoiceController {
     @FXML
     private void handleSaveInvoice(ActionEvent event) {
         String selectedCustomer = customerComboBox.getValue();
+        // System.out.println(productComboBox.getValue());
         LocalDate date = datePicker.getValue();
         if (selectedCustomer == null || date == null || lineItems.isEmpty()) {
             showAlert("Missing Data", "Please fill all required fields.");
@@ -190,7 +215,7 @@ public class InvoiceController {
                 return;
             }
 
-            invoiceService.saveInvoice(customer, date, new ArrayList<>(lineItems),"SALE");
+            invoiceService.saveInvoice(customer, date, new ArrayList<>(lineItems), "SALE");
             showAlert("Success", "Invoice saved successfully!");
             clearForm();
         } catch (Exception e) {

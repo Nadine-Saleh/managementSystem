@@ -74,7 +74,7 @@ public class ProductController {
 
             // Build Product object
             Product product = new Product(
-                    txtName.getText().trim(),
+                     txtName.getText().trim(),
                     price,
                     quantity,
                     selectedCategory,

@@ -72,6 +72,7 @@ public class ProductDAOImpl implements ProductDAO {
 
             if (rs.next()) {
                 product = new Product(
+                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
                         rs.getInt("quantity"),
@@ -99,6 +100,7 @@ public class ProductDAOImpl implements ProductDAO {
 
             while (rs.next()) {
                 Product product = new Product(
+                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
                         rs.getInt("quantity"),
