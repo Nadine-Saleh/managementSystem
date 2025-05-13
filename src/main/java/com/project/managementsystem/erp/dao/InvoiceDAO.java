@@ -45,6 +45,8 @@ public interface InvoiceDAO {
      * @return List of Invoices
      */
     List<Invoice> getAll();
+    
+List<Invoice> searchByCustomerName(String keyword); // searches by customer name
 
     /**
      * Retrieves invoices by type (SALE or PURCHASE).

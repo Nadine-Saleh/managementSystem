@@ -170,6 +170,7 @@ public class InvoiceService {
 
         for (LineItem lineItem : lineItems) {
             lineItem.setInvoiceId(invoiceId);
+            lineItem.setType(type);
             lineItemDAO.addLineItem(lineItem);
         }
 

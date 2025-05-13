@@ -20,10 +20,11 @@ public class Product {
     /**
      * Full constructor for creating a Product object.
      */
-    public Product(String name,
+    public Product(int id, String name,
                    double price, int quantity, String category,
                    String unit,
                    String createdAt) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.quantity=quantity;
@@ -33,6 +34,15 @@ public class Product {
     }
 
     // Getters and Setters
+
+    public Product() {
+        //TODO Auto-generated constructor stub
+    }
+
+    public Product(String trim, double price2, int quantity2, String selectedCategory, String selectedUnit,
+            String string) {
+        //TODO Auto-generated constructor stub
+    }
 
     public int getId() {
         return id;
