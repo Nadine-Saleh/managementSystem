@@ -3,7 +3,6 @@ package com.project.managementsystem.erp.dao;
 import com.project.managementsystem.erp.config.DBConnection;
 import com.project.managementsystem.erp.dao.InvoiceDAO;
 import com.project.managementsystem.erp.models.Invoice;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
 public class InvoiceDAOImpl implements InvoiceDAO {
 
     // SQL Statements
-    private static final String INSERT_INVOICE = "INSERT INTO invoices(customer_name, date, total_amount, type) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_INVOICE = "INSERT INTO invoices(Customer_id, customer_name, date, total_amount, type) VALUES (?, ?, ?, ?,?)";
     private static final String UPDATE_INVOICE = "UPDATE invoices SET customer_name = ?, date = ?, total_amount = ?, type = ? WHERE id = ?";
     private static final String DELETE_INVOICE = "DELETE FROM invoices WHERE id = ?";
     private static final String SELECT_INVOICE_BY_ID = "SELECT * FROM invoices WHERE id = ?";
@@ -30,10 +29,11 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(INSERT_INVOICE, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, invoice.getCustomerName());
-            stmt.setString(2, String.valueOf(invoice.getCreatedAt()));
-            stmt.setDouble(3, invoice.getTotalAmount());
-            stmt.setString(4, invoice.getType());
+            stmt.setInt(1, invoice.getCustomerId());
+            stmt.setString(2, invoice.getCustomerName());
+            stmt.setString(3, String.valueOf(invoice.getCreatedAt()));
+            stmt.setDouble(4, invoice.getTotalAmount());
+            stmt.setString(5, invoice.getType());
 
             int affectedRows = stmt.executeUpdate();
 
@@ -65,7 +65,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
              PreparedStatement stmt = connection.prepareStatement(UPDATE_INVOICE)) {
 
             stmt.setString(1, invoice.getCustomerName());
-            stmt.setString(2, String.valueOf(invoice.getCreatedAt()));
+            stmt.setDate(2, invoice.getCreatedAt() != null ? Date.valueOf(invoice.getCreatedAt()) : null);
             stmt.setDouble(3, invoice.getTotalAmount());
             stmt.setString(4, invoice.getType());
             stmt.setInt(5, invoice.getId());
@@ -182,5 +182,11 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         // invoice.setItems(lineItemDAO.getLineItemsByInvoiceId(invoice.getId(), invoice.getType()));
 
         return invoice;
+    }
+
+    @Override
+    public List<Invoice> searchByCustomerName(String keyword) {
+        // TODO Auto-generated method stub
+        return new ArrayList<>();
     }
 }

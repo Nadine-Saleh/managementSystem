@@ -52,6 +52,7 @@ public class LineItem {
     }
 
     public int getProductId() {
+        System.err.println(productId);
         return productId;
     }
 

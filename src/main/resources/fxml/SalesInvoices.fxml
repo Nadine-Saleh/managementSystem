@@ -28,7 +28,7 @@
             <TextField fx:id="searchByCustomerName" layoutX="41.0" layoutY="93.0" prefHeight="26.0" prefWidth="179.0" promptText="search by customer name" />
             <TableView layoutX="81.0" layoutY="153.0" prefHeight="210.0" prefWidth="610.0">
                <columns>
-                  <TableColumn fx:id="invoiceNum" onEditStart="#getInvoiceNumber" prefWidth="68.79998779296875" text="Number" />
+                  <TableColumn fx:id="invoiceNum"  prefWidth="68.79998779296875" text="Number" />
                   <TableColumn fx:id="invoiceCustomer" prefWidth="200.79998779296875" text="Customer" />
                   <TableColumn fx:id="invoiceDate" prefWidth="186.4000244140625" text="Date" />
                   <TableColumn fx:id="invoiceTotalAmount" prefWidth="154.4000244140625" text="Total" />

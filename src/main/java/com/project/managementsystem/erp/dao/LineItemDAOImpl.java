@@ -27,7 +27,7 @@ public class LineItemDAOImpl implements LineItemDAO {
             stmt.setDouble(5, item.getUnitPrice());
             stmt.setDouble(6, item.getTotal());
             stmt.setString(7, item.getType());
-
+System.err.println(stmt);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
