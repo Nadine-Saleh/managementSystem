@@ -23,7 +23,11 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the main view from FXML
+<<<<<<< HEAD
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OpenSalesInvoice.fxml"));
+=======
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+>>>>>>> 744c03e (Update main view to load home.fxml and remove salesInvoice.fxml)
         Scene scene = new Scene(loader.load());
 
         // Configure the primary stage
