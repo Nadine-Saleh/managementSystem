@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="552.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.managementsystem.erp.ui.controllers.Home">
+<AnchorPane fx:id="mainContainer" prefHeight="552.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.managementsystem.erp.ui.controllers.Home">
    <children>
       <AnchorPane prefHeight="552.0" prefWidth="90.0" style="-fx-background-color: #BC6C25;">
          <children>
@@ -105,7 +105,7 @@
                               <Image url="@../Images/NewCustomer.png" />
                            </image>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="92.0" style="-fx-background-color: transparent;" />
+                        <Button fx:id="addCustomerbtn" mnemonicParsing="false" prefHeight="77.0" prefWidth="92.0" style="-fx-background-color: transparent;" />
                      </children>
                   </StackPane>
                   <Label prefHeight="25.0" prefWidth="128.0" text="      Add customer" />
@@ -120,7 +120,7 @@
                               <Image url="@../Images/product.png" />
                            </image>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="138.0" style="-fx-background-color: transparent;" />
+                        <Button fx:id="addProductbtn" mnemonicParsing="false" prefHeight="102.0" prefWidth="138.0" style="-fx-background-color: transparent;" />
                      </children>
                   </StackPane>
                   <Label prefHeight="25.0" prefWidth="128.0" text="        Add product" />
