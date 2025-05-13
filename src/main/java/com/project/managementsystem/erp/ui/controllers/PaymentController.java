@@ -116,7 +116,7 @@ public class PaymentController {
                 //Handling date
                 LocalDate selectedDate = datepickerpay.getValue();
 
-                java.sql.Date sqlDate = java.sql.Date.valueOf(selectedDate);
+                LocalDate sqlDate = selectedDate;
 
                 // Create payment object
                 Payment payment = new Payment();
