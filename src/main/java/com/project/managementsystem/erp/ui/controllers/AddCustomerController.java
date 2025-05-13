@@ -30,6 +30,7 @@ public class AddCustomerController {
     public void initialize() {
         saveButton.setOnAction(event -> handleSaveCustomer());
     }
+    
 
     @FXML
     private void handleSaveCustomer() {
