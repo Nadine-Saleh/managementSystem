@@ -18,6 +18,8 @@ public class Home {
     private Button addCustomerbtn;
     @FXML
     private Button addProductbtn;
+    @FXML
+    private Button addPaymentbtn;
 
     @FXML
     private AnchorPane mainContainer; // This is from home.fxml
@@ -26,6 +28,7 @@ public class Home {
     public void initialize() {
         addCustomerbtn.setOnAction(event -> showCustomerForm());
         addProductbtn.setOnAction(event -> showproductForm());
+        addPaymentbtn.setOnAction(event -> showpPaymentForm());
     }
 
     private void showCustomerForm() {
@@ -60,6 +63,29 @@ public class Home {
             Stage stage = new Stage();
             stage.setTitle("Customer Form");
             stage.setScene(new Scene(ProductViewrRoot));
+
+            // Make it modal (blocks interaction with main window)
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Show the new window and wait until it's closed
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println("Error loading ProductView.fxml");
+            e.printStackTrace();
+        }
+    }
+    //Adding Payment
+    private void showpPaymentForm() {
+        try {
+            // Load customer.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/payment.fxml"));
+            Parent paymentRoot = loader.load();
+
+            // Create a new stage (window)
+            Stage stage = new Stage();
+            stage.setTitle("Customer Form");
+            stage.setScene(new Scene(paymentRoot));
 
             // Make it modal (blocks interaction with main window)
             stage.initModality(Modality.APPLICATION_MODAL);

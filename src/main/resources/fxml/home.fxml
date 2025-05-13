@@ -75,7 +75,7 @@
                               <Image url="@../Images/payment-method-1.png" />
                            </image>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="106.0" style="-fx-background-color: transparent;" />
+                        <Button fx:id="addPaymentbtn" mnemonicParsing="false" prefHeight="80.0" prefWidth="106.0" style="-fx-background-color: transparent;" />
                      </children>
                   </StackPane>
                   <Label prefHeight="25.0" prefWidth="128.0" text="          Add payment" />
