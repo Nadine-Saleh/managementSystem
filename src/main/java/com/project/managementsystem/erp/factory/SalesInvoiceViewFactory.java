@@ -3,7 +3,7 @@ package com.project.managementsystem.erp.factory;
 public class SalesInvoiceViewFactory implements InvoiceViewFactory {
     @Override
     public String loadNewInvoicePath() {
-        return "fxml/salesInvoicenadine.fxml";
+        return "fxml/addSalesInvoice.fxml";
     }
 
     @Override
