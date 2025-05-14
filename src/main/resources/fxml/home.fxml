@@ -90,7 +90,7 @@
                               <Image url="@../Images/bi_customer_progress_billing.png" />
                            </image>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: transparent;" />
+                        <Button fx:id="salesBtn" mnemonicParsing="false" onAction="#openSalesMenu" prefHeight="81.0" prefWidth="99.0" style="-fx-background-color: transparent;" />
                      </children>
                   </StackPane>
                   <Label prefHeight="25.0" prefWidth="128.0" text="        Sales Invoices" />
@@ -135,7 +135,7 @@
                               <Image url="@../Images/invoicing-management-1.png" />
                            </image>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="99.0" style="-fx-background-color: transparent;" />
+                        <Button fx:id="purchaseMenu" mnemonicParsing="false" onAction="#openPurchaseMenu" prefHeight="76.0" prefWidth="99.0" style="-fx-background-color: transparent;" />
                      </children>
                   </StackPane>
                   <Label prefHeight="25.0" prefWidth="128.0" text="      Purchase invoices" />

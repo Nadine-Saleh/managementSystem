@@ -1,5 +1,6 @@
 package com.project.managementsystem.erp.ui.controllers;
 
+import com.project.managementsystem.erp.factory.FxmlLoaderUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
+
+import javafx.fxml.FXML;
 
 import java.io.IOException;
 
@@ -97,5 +101,30 @@ public class Home {
             System.err.println("Error loading ProductView.fxml");
             e.printStackTrace();
         }
+    }
+    @FXML
+    private Button purchaseMenu;
+
+    @FXML
+    private Button salesBtn;
+
+    @FXML
+    void openPurchaseMenu(ActionEvent event) {
+        FxmlLoaderUtil.openOptionsMenuWindow(
+                getClass(),
+                "fxml/options-menu.fxml",
+                "Purchase options",
+                "purchase"
+        );
+    }
+
+    @FXML
+    void openSalesMenu(ActionEvent event) {
+        FxmlLoaderUtil.openOptionsMenuWindow(
+                getClass(),
+                "fxml/options-menu.fxml",
+                "Sales Options",
+                "sales"
+        );
     }
 }
