@@ -10,16 +10,18 @@ import java.util.List;
 public class Invoice {
 
     private int id;
-    private String invoiceNumber;
-    private LocalDate issueDate;
-    private String dueDate;
-    private String paymentStatus;
-    private int customerId;
     private String customerName;
     private LocalDate createdAt;
+    private double totalAmount;
+
     private String Type;
+    private int customerId;
+    // private String invoiceNumber;
+    // private String dueDate;
+    // private String paymentStatus;
     private List<LineItem> items;
     private Customer customer;
+
     public List<LineItem> getItems() {
         return items;
     }
@@ -27,13 +29,14 @@ public class Invoice {
     public void setItems(List<LineItem> items) {
         this.items = items;
     }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-public Customer getCustomer() {
-        return customer;
-    }   
 
+    public Customer getCustomer() {
+        return customer;
+    }
 
     public String getType() {
         return Type;
@@ -43,7 +46,6 @@ public Customer getCustomer() {
         Type = type;
     }
 
-
     public String getCustomerName() {
         return customerName;
     }
@@ -51,8 +53,6 @@ public Customer getCustomer() {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
-    private double totalAmount;
 
     public LocalDate getCreatedAt() {
         return createdAt;
@@ -62,44 +62,41 @@ public Customer getCustomer() {
         this.createdAt = createdAt;
     }
 
+    // public String getInvoiceNumber() {
+    //     return invoiceNumber;
+    // }
 
+    // public void setInvoiceNumber(String invoiceNumber) {
+    //     this.invoiceNumber = invoiceNumber;
+    // }
 
-    public String getInvoiceNumber() {
-        return invoiceNumber;
-    }
+    // public LocalDate getIssueDate() {
+    //     return issueDate;
+    // }
 
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
+    // public void setIssueDate(LocalDate issueDate) {
+    //     this.issueDate = issueDate;
+    // }
 
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
+    // public String getDueDate() {
+    //     return dueDate;
+    // }
 
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
+    // public void setDueDate(String dueDate) {
+    //     this.dueDate = dueDate;
+    // }
 
-    public String getDueDate() {
-        return dueDate;
-    }
+    // public String getPaymentStatus() {
+    //     return paymentStatus;
+    // }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-
+    // public void setPaymentStatus(String paymentStatus) {
+    //     this.paymentStatus = paymentStatus;
+    // }
 
     // Default constructor (required by frameworks like JavaFX and ORMs)
-    public Invoice() {}
+    public Invoice() {
+    }
 
     // Full constructor
     public Invoice(int id, int customerId, LocalDate createdAt, double totalAmount) {
@@ -108,13 +105,14 @@ public Customer getCustomer() {
         this.createdAt = createdAt;
         this.totalAmount = totalAmount;
     }
-public Invoice(int id, int customerId, String customerName, LocalDate createdAt, double totalAmount) {
-    this.id = id;
-    this.customerId = customerId;
-    this.customerName = customerName;
-    this.createdAt = createdAt;
-    this.totalAmount = totalAmount;
-}
+
+    public Invoice(int id, int customerId, String customerName, LocalDate createdAt, double totalAmount) {
+        this.id = id;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.createdAt = createdAt;
+        this.totalAmount = totalAmount;
+    }
     // Getters and Setters
 
     public int getId() {
@@ -133,8 +131,6 @@ public Invoice(int id, int customerId, String customerName, LocalDate createdAt,
         this.customerId = customerId;
     }
 
-
-
     public double getTotalAmount() {
         return totalAmount;
     }
@@ -148,13 +144,15 @@ public Invoice(int id, int customerId, String customerName, LocalDate createdAt,
     public String toString() {
         return "Invoice{" +
                 "id=" + id +
+                ", customerName=" + customerName +
                 ", customerId=" + customerId +
                 ", invoiceDate=" + createdAt +
                 ", totalAmount=" + totalAmount +
-                ", invoice number=" + invoiceNumber+
-                ", issue date " +issueDate +
-                ", due date " +dueDate+
-                ", payment status " +paymentStatus +
+                ", type=" + Type +
+                // ", invoice number=" + invoiceNumber +
+                // ", issue date " + issueDate +
+                // ", due date " + dueDate +
+                // ", payment status " + paymentStatus +
 
                 '}';
     }

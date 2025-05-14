@@ -53,4 +53,6 @@ public interface CustomerDAO {
      * @return List of matching Customer objects
      */
     List<Customer> searchCustomers(String keyword);
+
+    Customer getCustomerByName(String selectedCustomer);
 }

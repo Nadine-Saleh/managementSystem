@@ -184,4 +184,22 @@ public List<Customer> getAll() {
 
         return customer;
     }
+    @Override
+    public Customer getCustomerByName(String selectedCustomer) {
+        String query = "SELECT * FROM customers WHERE Name = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, selectedCustomer);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return mapResultSetToCustomer(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching customer by name: " + selectedCustomer, e);
+        }
+        return null;
+    }
 }

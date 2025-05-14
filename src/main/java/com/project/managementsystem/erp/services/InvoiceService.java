@@ -154,10 +154,11 @@ public class InvoiceService {
      * @param lineItems The list of line items in the invoice.
      * @throws Exception If there is an error during the save process.
      */
- public void saveInvoice(Customer customer, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
+ public void saveInvoice(Customer customer,int customerId, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
     try {
         Invoice invoice = new Invoice();
         invoice.setCustomer(customer);
+        invoice.setCustomerId(customerId);
         invoice.setCustomerName(customer.getName()); // ← SET CUSTOMER NAME HERE
         invoice.setCreatedAt(date);
         invoice.setItems(lineItems);

@@ -197,6 +197,8 @@ public class InvoiceController {
     @FXML
     private void handleSaveInvoice(ActionEvent event) {
         String selectedCustomer = customerComboBox.getValue();
+        Customer customerselected = customerDAO.getCustomerByName(selectedCustomer);
+        int customerId =customerselected.getId();  ;
         // System.out.println(productComboBox.getValue());
         LocalDate date = datePicker.getValue();
         if (selectedCustomer == null || date == null || lineItems.isEmpty()) {
@@ -215,7 +217,7 @@ public class InvoiceController {
                 return;
             }
 
-            invoiceService.saveInvoice(customer, date, new ArrayList<>(lineItems), "SALE");
+            invoiceService.saveInvoice(customer,customerId, date, new ArrayList<>(lineItems), "SALE");
             showAlert("Success", "Invoice saved successfully!");
             clearForm();
         } catch (Exception e) {

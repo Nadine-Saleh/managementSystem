@@ -173,6 +173,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     private Invoice mapResultSetToInvoice(ResultSet rs) throws SQLException {
         Invoice invoice = new Invoice();
         invoice.setId(rs.getInt("id"));
+        invoice.setCustomerId(rs.getInt("customer_id"));
         invoice.setCustomerName(rs.getString("customer_name"));
         invoice.setCreatedAt(LocalDate.parse(rs.getString("date")));
         invoice.setTotalAmount(rs.getDouble("total_amount"));
