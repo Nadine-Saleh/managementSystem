@@ -90,13 +90,12 @@ public class SalesInvoicesController {
             writer.write("Invoice Number,Customer,Issue Date,Total Amount\n");
 
             for (Invoice invoice : currentInvoices) {
-                writer.write(String.format("%s,%s,%s,%.2f\n",
-                        // invoice.getInvoiceNumber(),
-                        invoice.getCustomerName(),
-                        invoice.getCreatedAt(),
-                        invoice.getCustomerId(),
-                        invoice.getTotalAmount()
-                ));
+               writer.write(String.format("%d,%s,%s,%.2f\n",
+        invoice.getId(),
+        invoice.getCustomerName(),
+        invoice.getCreatedAt().toString(), // Make sure date is formatted
+        invoice.getTotalAmount()
+));
             }
 
             showAlert("Export Successful", "Invoices exported to 'sales_invoices_export.csv'");
