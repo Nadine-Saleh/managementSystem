@@ -81,29 +81,31 @@ public class SalesInvoicesController {
             showAlert("Search Error", "Could not search invoices: " + e.getMessage());
         }
     }
-
     @FXML
     public void downloadCSV(ActionEvent event) {
         List<Invoice> currentInvoices = invoicesTable.getItems();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("sales_invoices_export.csv"))) {
-            writer.write("Invoice Number,Customer,Issue Date,Total Amount\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("D:/managementSystem/sales_invoices_export.csv"))) {
+            // العناوين مفصولة بـ ;
+            writer.write("Invoice Number;Customer;Issue Date;Total Amount\n");
 
+            // البيانات مفصولة بـ ;
             for (Invoice invoice : currentInvoices) {
-               writer.write(String.format("%d,%s,%s,%.2f\n",
-        invoice.getId(),
-        invoice.getCustomerName(),
-        invoice.getCreatedAt().toString(), // Make sure date is formatted
-        invoice.getTotalAmount()
-));
+                writer.write(String.format("%d;%s;%s;%.2f\n",
+                        invoice.getId(),
+                        invoice.getCustomerName(),
+                        invoice.getCreatedAt().toString(),
+                        invoice.getTotalAmount()
+                ));
             }
 
-            showAlert("Export Successful", "Invoices exported to 'sales_invoices_export.csv'");
+            showAlert("✅ Export Successful", "Invoices exported to 'sales_invoices_export.csv'");
 
         } catch (IOException e) {
-            showAlert("Export Failed", "Could not save CSV file: " + e.getMessage());
+            showAlert("❌ Export Failed", "Could not save CSV file: " + e.getMessage());
         }
     }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

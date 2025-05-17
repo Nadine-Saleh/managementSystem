@@ -19,6 +19,14 @@ public class Invoice {
     // private String invoiceNumber;
     // private String dueDate;
     // private String paymentStatus;
+    public Invoice(int id, String customerName, LocalDate createdAt, double totalAmount, String type) {
+        this.id = id;
+        this.customerName = customerName;
+        this.createdAt = createdAt;
+        this.totalAmount = totalAmount;
+        this.Type = type;
+    }
+
     private List<LineItem> items;
     private Customer customer;
 

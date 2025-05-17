@@ -185,9 +185,34 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return invoice;
     }
 
+
     @Override
     public List<Invoice> searchByCustomerName(String keyword) {
-        // TODO Auto-generated method stub
-        return new ArrayList<>();
+        List<Invoice> invoices = new ArrayList<>();
+        String sql = "SELECT * FROM invoices WHERE customer_name LIKE ? AND type = 'SALE'";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Invoice invoice = new Invoice(
+                        rs.getInt("id"),
+                        rs.getString("customer_name"),
+                        LocalDate.parse(rs.getString("date")),
+                        rs.getDouble("total_amount"),
+                        rs.getString("type")
+                );
+                invoices.add(invoice);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Search failed: " + e.getMessage());
+        }
+
+        return invoices;
     }
+
 }
