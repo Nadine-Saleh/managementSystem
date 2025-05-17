@@ -1,87 +1,67 @@
 package com.project.managementsystem.erp.ui.controllers;
 
+import com.project.managementsystem.erp.dao.CustomerDAO;
+import com.project.managementsystem.erp.dao.CustomerDAOImpl;
+import com.project.managementsystem.erp.dao.ProductDAO;
+import com.project.managementsystem.erp.dao.ProductDAOImpl;
+import com.project.managementsystem.erp.models.Customer;
+import com.project.managementsystem.erp.models.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
-public class NewPurchaseInvoiceController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXML
-    private Button addRowButton;
+public class NewPurchaseInvoiceController implements Initializable {
 
-    @FXML
-    private TableColumn<?, ?> amountCol;
+    @FXML private Button addRowButton;
+    @FXML private TableColumn<?, ?> amountCol;
+    @FXML private TextField amountField;
+    @FXML private Button cancelButton;
+    @FXML private TextField creditField;
+    @FXML private Label currentBalanceLabel;
+    @FXML private ComboBox<Customer> customerComboBox;
+    @FXML private DatePicker datePicker;
+    @FXML private TableView<?> invoiceTable;
+    @FXML private TextField paidField;
+    @FXML private TableColumn<?, ?> priceCol;
+    @FXML private TextField priceField;
+    @FXML private TableColumn<?, ?> productCol;
+    @FXML private ComboBox<Product> productComboBox;
+    @FXML private TableColumn<?, ?> quantityCol;
+    @FXML private TextField quantityField;
+    @FXML private TableColumn<?, ?> removeCol;
+    @FXML private Button saveButton;
+    @FXML private Label totalLabel;
 
-    @FXML
-    private TextField amountField;
+    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+    private final ProductDAO productDAO = new ProductDAOImpl();
 
-    @FXML
-    private Button cancelButton;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<Customer> customers = FXCollections.observableArrayList(customerDAO.getAllCustomers());
+        customerComboBox.setItems(customers);
 
-    @FXML
-    private TextField creditField;
-
-    @FXML
-    private Label currentBalanceLabel;
-
-    @FXML
-    private ComboBox<?> customerComboBox;
-
-    @FXML
-    private DatePicker datePicker;
-
-    @FXML
-    private TableView<?> invoiceTable;
-
-    @FXML
-    private TextField paidField;
-
-    @FXML
-    private TableColumn<?, ?> priceCol;
-
-    @FXML
-    private TextField priceField;
-
-    @FXML
-    private TableColumn<?, ?> productCol;
-
-    @FXML
-    private ComboBox<?> productComboBox;
-
-    @FXML
-    private TableColumn<?, ?> quantityCol;
-
-    @FXML
-    private TextField quantityField;
-
-    @FXML
-    private TableColumn<?, ?> removeCol;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Label totalLabel;
+        ObservableList<Product> products = FXCollections.observableArrayList(productDAO.getAll());
+        productComboBox.setItems(products);
+    }
 
     @FXML
     void handleAddRow(ActionEvent event) {
-
+        // To be implemented
     }
 
     @FXML
     void handleCancel(ActionEvent event) {
-
+        // To be implemented
     }
 
     @FXML
     void handleSaveInvoice(ActionEvent event) {
-
+        // To be implemented
     }
-
 }
