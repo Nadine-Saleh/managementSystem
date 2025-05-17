@@ -32,6 +32,17 @@ public class Product {
         this.unit = unit;
         this.createdAt = createdAt;
     }
+    public Product( String name,
+                   double price, int quantity, String category,
+                   String unit,
+                   String createdAt) {
+        this.name = name;
+        this.price = price;
+        this.quantity=quantity;
+        this.category = category;
+        this.unit = unit;
+        this.createdAt = createdAt;
+    }
 
     // Getters and Setters
 
@@ -39,10 +50,6 @@ public class Product {
         //TODO Auto-generated constructor stub
     }
 
-    public Product(String trim, double price2, int quantity2, String selectedCategory, String selectedUnit,
-            String string) {
-        //TODO Auto-generated constructor stub
-    }
 
     public int getId() {
         return id;
