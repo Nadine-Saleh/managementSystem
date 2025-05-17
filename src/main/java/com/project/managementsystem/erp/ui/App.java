@@ -23,8 +23,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the main view from FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(getClass().getResource("/Css/signup_styles.css").toExternalForm());
+
 
         // Configure the primary stage
         primaryStage.setTitle("ERP Admin Dashboard");
