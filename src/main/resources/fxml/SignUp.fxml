@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.project.managementsystem.erp.ui.controllers.SignUpController"
+            fx:id="mainRoot"
+            stylesheets="@../Css/signup_styles.css"
+            prefHeight="500.0" prefWidth="600.0"
+            style="-fx-background-color: #F5F7FA;">
+
+    <children>
+        <VBox alignment="CENTER" spacing="20"
+              AnchorPane.leftAnchor="50.0"
+              AnchorPane.rightAnchor="50.0"
+              AnchorPane.topAnchor="50.0">
+
+            <Label text="Sign Up"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #BC6C25;" />
+
+            <TextField fx:id="nameField" promptText="Full Name"
+                       style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 10;" />
+
+            <TextField fx:id="usernameField" promptText="Username"
+                       style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 10;" />
+
+            <TextField fx:id="emailField" promptText="Email"
+                       style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 10;" />
+
+            <PasswordField fx:id="passwordField" promptText="Password"
+                           style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 10;" />
+
+            <Button text="Sign Up" fx:id="signUpBtn" onAction="#handleSignUp"
+                    style="-fx-background-color:#BC6C25; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 12; -fx-padding: 10 20;" />
+
+        </VBox>
+    </children>
+</AnchorPane>
