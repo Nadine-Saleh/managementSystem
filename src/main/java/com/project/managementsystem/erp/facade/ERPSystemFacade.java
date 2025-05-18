@@ -16,6 +16,7 @@ import java.util.List;
 public class ERPSystemFacade {
 
     // Services
+    private final AddSupplierService addSupplierService;
   private final ProductService productService;
   private final PaymentService paymentService;
     private final AddCustomerService addcustomerService;
@@ -30,6 +31,7 @@ public class ERPSystemFacade {
 //        this.inventoryService = new DefaultInventoryService(new InventoryDAOImpl());
         this.addcustomerService = new AddCustomerService();
 //        this.invoiceService = new DefaultInvoiceService(new InvoiceDAOImpl());
+        this.addSupplierService = new AddSupplierService();
     }
 
     // === PRODUCT METHODS ===
@@ -83,6 +85,8 @@ public class ERPSystemFacade {
    public List<Customer> getAllCustomers() {
        return addcustomerService.getAllCustomers();
    }
+    public void addSupplier(Supplier supplier) {addSupplierService.addSupplier(supplier);}
+    public List<Supplier> getAllSuppliers() {return addSupplierService.getAllSuppliers();}
 //
 //    public void updateCustomer(Customer customer) {
 //        addcustomerService.update(customer);
