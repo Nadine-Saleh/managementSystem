@@ -81,7 +81,7 @@
                   <Label prefHeight="25.0" prefWidth="128.0" text="          Add payment" />
                </children>
             </VBox>
-            <VBox layoutX="37.0" layoutY="195.0" prefHeight="123.0" prefWidth="128.0">
+            <VBox layoutX="231.0" layoutY="216.0" prefHeight="123.0" prefWidth="128.0">
                <children>
                   <StackPane prefHeight="92.0" prefWidth="106.0">
                      <children>
@@ -126,7 +126,7 @@
                   <Label prefHeight="25.0" prefWidth="128.0" text="        Add product" />
                </children>
             </VBox>
-            <VBox layoutX="241.0" layoutY="195.0" prefHeight="106.0" prefWidth="118.0">
+            <VBox layoutX="438.0" layoutY="203.0" prefHeight="106.0" prefWidth="118.0">
                <children>
                   <StackPane prefHeight="97.0" prefWidth="140.0">
                      <children>
@@ -139,6 +139,21 @@
                      </children>
                   </StackPane>
                   <Label prefHeight="25.0" prefWidth="128.0" text="      Purchase invoices" />
+               </children>
+            </VBox>
+            <VBox layoutX="37.0" layoutY="212.0" prefHeight="132.0" prefWidth="128.0">
+               <children>
+                  <StackPane prefHeight="75.0" prefWidth="90.0">
+                     <children>
+                        <ImageView fitHeight="57.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/NewCustomer.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="addSupplierbtn1" mnemonicParsing="false" onAction="#openAddSupplier" prefHeight="77.0" prefWidth="92.0" style="-fx-background-color: transparent;" />
+                     </children>
+                  </StackPane>
+                  <Label prefHeight="25.0" prefWidth="128.0" text="      Add supplier" />
                </children>
             </VBox>
          </children>
