@@ -154,30 +154,34 @@ public class InvoiceService {
      * @param lineItems The list of line items in the invoice.
      * @throws Exception If there is an error during the save process.
      */
- public void saveInvoice(Customer customer,int customerId, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
-    try {
-        Invoice invoice = new Invoice();
-        invoice.setCustomer(customer);
-        invoice.setCustomerId(customerId);
-        invoice.setCustomerName(customer.getName()); // ← SET CUSTOMER NAME HERE
-        invoice.setCreatedAt(date);
-        invoice.setItems(lineItems);
-        invoice.setType(type);
+    public void saveInvoice(Customer customer, int customerId, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
+        try {
+            Invoice invoice = new Invoice();
+            invoice.setCustomer(customer);
+            invoice.setCustomerId(customerId);
+            invoice.setCustomerName(customer.getName());
+            invoice.setCreatedAt(date);
+            invoice.setItems(lineItems);
+            invoice.setType(type);
 
-        double totalAmount = lineItems.stream().mapToDouble(LineItem::getTotal).sum();
-        invoice.setTotalAmount(totalAmount);
+            double totalAmount = lineItems.stream().mapToDouble(LineItem::getTotal).sum();
+            invoice.setTotalAmount(totalAmount);
 
-        int invoiceId = invoiceDAO.save(invoice); // Should now work
+            int invoiceId = invoiceDAO.save(invoice); // يحفظ الفاتورة ويرجع ID
 
-        for (LineItem lineItem : lineItems) {
-            lineItem.setInvoiceId(invoiceId);
-            lineItem.setType(type);
-            lineItemDAO.addLineItem(lineItem);
+            for (LineItem lineItem : lineItems) {
+                lineItem.setInvoiceId(invoiceId);
+                lineItem.setType(type);
+                lineItemDAO.addLineItem(lineItem);
+            }
+
+            // ✅ تحديث المخزون
+            updateInventoryFromLineItems(lineItems, invoiceId, type);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to save the invoice: " + e.getMessage(), e);
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        throw new Exception("Failed to save the invoice: " + e.getMessage(), e);
     }
-}
+
     }

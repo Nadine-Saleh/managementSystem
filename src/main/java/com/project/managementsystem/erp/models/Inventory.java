@@ -11,8 +11,33 @@ public class Inventory {
     private String changeType;  // "IN", "OUT", "ADJUSTMENT"
     private int referenceId;    // ID of related transaction/order
     private String timestamp;
+    private String referenceType;
 
-    public Inventory(int id, int productId, int quantityChange, int currentStock, String changeType, int referenceId, String timestamp) {
+
+    public Inventory(int id, int productId, int quantityChange, int currentStock, String changeType, int referenceId, String timestamp,String referenceType) {
+        this.id = id;
+        this.productId = productId;
+        this.quantityChange = quantityChange;
+        this.currentStock = currentStock;
+        this.changeType = changeType;
+        this.referenceId = referenceId;
+        this.timestamp = timestamp;
+        this.referenceType = referenceType;
+    }
+    public String getReferenceType() {
+        return referenceType;
+    }
+
+    public void setReferenceType(String referenceType) {
+        this.referenceType = referenceType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getProductId() {

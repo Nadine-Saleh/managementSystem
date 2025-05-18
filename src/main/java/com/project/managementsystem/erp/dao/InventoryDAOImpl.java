@@ -2,6 +2,9 @@ package com.project.managementsystem.erp.dao;
 
 import com.project.managementsystem.erp.config.DBConnection;
 import com.project.managementsystem.erp.models.Inventory;
+import com.project.managementsystem.erp.models.Product;
+import com.project.managementsystem.erp.observer.StockNotification;
+import com.project.managementsystem.erp.util.NotificationManager;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,14 +16,16 @@ import java.util.List;
 public class InventoryDAOImpl implements InventoryDAO {
 
     // SQL Statements
-    private static final String INSERT_INVENTORY = "INSERT INTO inventory(product_id, quantity_change, current_stock, change_type, reference_id, timestamp) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_INVENTORY = "INSERT INTO inventory(productId, quantityChange, currentStock, changeType, referenceId, timestamp, referenceType) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_INVENTORY = "UPDATE inventory SET quantity_change = ?, current_stock = ?, change_type = ?, reference_id = ?, timestamp = ? WHERE id = ?";
     private static final String DELETE_INVENTORY = "DELETE FROM inventory WHERE id = ?";
     private static final String SELECT_INVENTORY_BY_ID = "SELECT * FROM inventory WHERE id = ?";
     private static final String SELECT_ALL_INVENTORY = "SELECT * FROM inventory";
-    private static final String SELECT_INVENTORY_BY_PRODUCT = "SELECT * FROM inventory WHERE product_id = ?";
-    private static final String SELECT_CURRENT_STOCK = "SELECT stock FROM products WHERE id = ?";
-    private static final String UPDATE_PRODUCT_STOCK = "UPDATE products SET stock = ? WHERE id = ?";
+    private static final String SELECT_INVENTORY_BY_PRODUCT = "SELECT * FROM inventory WHERE productId = ?";
+    private static final String SELECT_CURRENT_STOCK = "SELECT quantity FROM Product WHERE id = ?";
+    private static final String UPDATE_PRODUCT_STOCK = "UPDATE Product SET quantity = ? WHERE id = ?";
+
+
 
     @Override
     public void addInventory(Inventory inventory) {
@@ -51,6 +56,8 @@ public class InventoryDAOImpl implements InventoryDAO {
             stmt.setString(3, inventory.getChangeType());
             stmt.setInt(4, inventory.getReferenceId());
             stmt.setString(5, inventory.getTimestamp());
+            stmt.setInt(6, inventory.getId());
+
 
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated == 0) {
@@ -106,6 +113,7 @@ public class InventoryDAOImpl implements InventoryDAO {
 
             while (rs.next()) {
                 inventoryList.add(mapResultSetToInventory(rs));
+                System.out.println("✔ Loaded inventory row: ID = " + rs.getInt("id"));
             }
 
         } catch (SQLException e) {
@@ -113,28 +121,9 @@ public class InventoryDAOImpl implements InventoryDAO {
         }
         return inventoryList;
     }
-
-    @Override
-    public List<Inventory> getInventoryByProductId(int productId) {
-        List<Inventory> inventoryList = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(SELECT_INVENTORY_BY_PRODUCT)) {
-
-            stmt.setInt(1, productId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                inventoryList.add(mapResultSetToInventory(rs));
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching inventory for product ID: " + productId, e);
-        }
-        return inventoryList;
-    }
-
+@Override
     public void adjustStock(int productId, int change, String changeType, String referenceType, int referenceId) {
-        int currentStock = getCurrentStock(productId);
+        int currentStock = getCurrentStockByProductId(productId);
         int newStock = currentStock + change;
 
         if (newStock < 0) {
@@ -150,14 +139,30 @@ public class InventoryDAOImpl implements InventoryDAO {
             stmt.setString(4, changeType);
             stmt.setInt(5, referenceId);
             stmt.setString(6, java.time.LocalDateTime.now().toString());
+            stmt.setString(7, referenceType);
 
             stmt.executeUpdate();
 
-            // Update product stock
             try (PreparedStatement updateStmt = connection.prepareStatement(UPDATE_PRODUCT_STOCK)) {
                 updateStmt.setInt(1, newStock);
                 updateStmt.setInt(2, productId);
                 updateStmt.executeUpdate();
+            }
+
+            // ✅ هنا بقى التفعيل الحقيقي للتنبيه
+            ProductDAO productDAO = new ProductDAOImpl();
+            Product product = productDAO.getById(productId);
+
+            if (product != null) {
+                product.setStock(newStock);
+                product.attach(new StockNotification());
+                if (newStock <= product.getThreshold()) {
+                    product.notifyObservers();
+                    NotificationManager.getInstance().addNotification(
+                            "⚠️ Low Stock: " + product.getName() + " → " + newStock + " units left"
+                    );
+
+                }
             }
 
         } catch (SQLException e) {
@@ -168,21 +173,26 @@ public class InventoryDAOImpl implements InventoryDAO {
     /**
      * Helper method to get current stock from products table
      */
-    private int getCurrentStock(int productId) {
+    @Override
+    public int getCurrentStockByProductId(int productId) {
+        int stock = 0;
+        String sql = "SELECT SUM(quantityChange) AS total FROM inventory WHERE productId = ?";
+
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(SELECT_CURRENT_STOCK)) {
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, productId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("stock");
+                stock = rs.getInt("total");
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching current stock for product ID: " + productId, e);
+            throw new RuntimeException("Error calculating stock for product ID: " + productId, e);
         }
-        return 0;
+
+        return stock;
     }
 
     /**
@@ -192,11 +202,39 @@ public class InventoryDAOImpl implements InventoryDAO {
         return new Inventory(
                 rs.getInt("id"),
                 rs.getInt("productId"),
-                rs.getInt("quantity_change"),
-                rs.getInt("current_stock"),
-                rs.getString("change_type"),
-                rs.getInt("reference_id"),
-                rs.getString("timestamp")
+                rs.getInt("quantityChange"),
+                rs.getInt("currentStock"),
+                rs.getString("changeType"),
+                rs.getInt("referenceId"),
+                rs.getString("timestamp"),
+                rs.getString("referenceType")
         );
+
     }
+    @Override
+    public List<Product> getAllProducts() {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT * FROM Product";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getInt("quantity")
+                );
+                productList.add(p);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching all products", e);
+        }
+
+        return productList;
+    }
+
 }

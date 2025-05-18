@@ -1,5 +1,7 @@
 package com.project.managementsystem.erp.ui;
 
+import com.project.managementsystem.erp.models.Product;
+import com.project.managementsystem.erp.observer.StockNotification;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,6 +40,10 @@ public class App extends Application {
         primaryStage.show();
 
         System.out.println("ERP Application started successfully.");
+        Product p = new Product(1, "Laptop", 12000, 5);
+        StockNotification sn = new StockNotification();
+        p.attach(sn);
+        p.setStock(3);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.project.managementsystem.erp.dao;
 
 import com.project.managementsystem.erp.models.Inventory;
+import com.project.managementsystem.erp.models.Product;
 
 import java.util.List;
 
@@ -52,7 +53,6 @@ public interface InventoryDAO {
      * @param productId The ID of the product
      * @return List of Inventory entries for that product
      */
-    List<Inventory> getInventoryByProductId(int productId);
 
     /**
      * Adjusts the stock level of a product.
@@ -65,4 +65,14 @@ public interface InventoryDAO {
      * @param referenceId     Reference ID (e.g., order ID)
      */
      void adjustStock(int productId, int change, String changeType, String referenceType, int referenceId);
+    List<Product> getAllProducts();
+
+    /**
+     * Calculates the current stock level of a product by summing quantity changes.
+     *
+     * @param productId The ID of the product
+     * @return The current stock level
+     */
+    int getCurrentStockByProductId(int productId);
+
 }
