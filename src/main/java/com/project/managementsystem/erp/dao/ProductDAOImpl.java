@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductDAOImpl implements ProductDAO {
 
     // SQL Statements
-    private static final String INSERT_PRODUCT = "INSERT INTO Product(name, price, quantity, category, unit, createdAt) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_PRODUCT = "INSERT INTO Product(Name, price, quantity, category, unit, createdAt) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_PRODUCT_BY_ID = "SELECT * FROM Product WHERE id = ?";
     private static final String SELECT_ALL_PRODUCTS = "SELECT * FROM Product";
     private static final String UPDATE_PRODUCT = "UPDATE Product SET name = ?, price = ?, quantity = ?, category = ?, unit = ?, createdAt = ? WHERE id = ?";

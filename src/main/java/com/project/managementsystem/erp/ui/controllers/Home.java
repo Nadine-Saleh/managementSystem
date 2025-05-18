@@ -25,7 +25,8 @@ import java.net.URL;
 import java.util.List;
 
 public class Home {
-
+    @FXML
+    private Button addSupplierbtn1;
     @FXML
     private Button addCustomerbtn;
     @FXML
@@ -43,8 +44,34 @@ public class Home {
         addCustomerbtn.setOnAction(event -> showCustomerForm());
         addProductbtn.setOnAction(event -> showproductForm());
         addPaymentbtn.setOnAction(event -> showpPaymentForm());
+        addSupplierbtn1.setOnAction(event -> openAddSupplier());
+
     }
 
+    @FXML
+    void openAddSupplier() {
+        try {
+            // Load supplier.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addSupplier.fxml"));
+            Parent customerRoot = loader.load();
+
+            // Create a new stage (window)
+            Stage stage = new Stage();
+            stage.setTitle("Supplier Form");
+            stage.setScene(new Scene(customerRoot));
+
+            // Make it modal (blocks interaction with main window)
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Show the new window and wait until it's closed
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println("Error loading Supplier.fxml");
+            e.printStackTrace();
+        }
+
+    }
     private void showCustomerForm() {
         try {
             // Load customer.fxml
