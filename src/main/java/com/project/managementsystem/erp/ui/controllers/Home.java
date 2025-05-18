@@ -7,14 +7,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.geometry.Insets;
 
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXML;
+
+import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
+import java.util.List;
 
 public class Home {
 
@@ -24,6 +32,8 @@ public class Home {
     private Button addProductbtn;
     @FXML
     private Button addPaymentbtn;
+    @FXML
+    private Button notificationBtn;
 
     @FXML
     private AnchorPane mainContainer; // This is from home.fxml
@@ -57,6 +67,7 @@ public class Home {
             e.printStackTrace();
         }
     }
+
     private void showproductForm() {
         try {
             // Load customer.fxml
@@ -79,6 +90,7 @@ public class Home {
             e.printStackTrace();
         }
     }
+
     //Adding Payment
     private void showpPaymentForm() {
         try {
@@ -102,6 +114,7 @@ public class Home {
             e.printStackTrace();
         }
     }
+
     @FXML
     private Button purchaseMenu;
 
@@ -127,4 +140,40 @@ public class Home {
                 "sales"
         );
     }
+
+    @FXML
+    private Button inventoryBtn;
+
+    @FXML
+    void openInventoryView(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/inventory.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Inventory");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showNotifications() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/notifications.fxml")); // تأكدي من الاسم والمسار
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Notifications");
+            stage.setScene(new Scene(root));
+            stage.setWidth(420);
+            stage.setHeight(300);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
