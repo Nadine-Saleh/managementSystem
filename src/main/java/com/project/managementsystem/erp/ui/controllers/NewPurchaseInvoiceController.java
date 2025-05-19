@@ -1,7 +1,11 @@
 package com.project.managementsystem.erp.ui.controllers;
 
 import com.project.managementsystem.erp.dao.*;
+
 import com.project.managementsystem.erp.models.*;
+import com.project.managementsystem.erp.facade.ERPSystemFacade;
+
+import com.project.managementsystem.erp.services.AddSupplierService;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,22 +13,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
-import com.project.managementsystem.erp.services.InvoiceService;
 
-
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class NewPurchaseInvoiceController implements Initializable {
+public class NewPurchaseInvoiceController {
 
-    @FXML private ComboBox<String> customerComboBox;
+    // FXML Fields
+    @FXML private ComboBox<Supplier> supplierComboBox;
     @FXML private DatePicker datePicker;
     @FXML private ComboBox<Product> productComboBox;
     @FXML private TextField quantityField;
@@ -38,40 +38,59 @@ public class NewPurchaseInvoiceController implements Initializable {
     @FXML private TableColumn<LineItem, Double> amountCol;
     @FXML private TableColumn<LineItem, Void> removeCol;
     @FXML private Label totalLabel;
-    @FXML private TextField creditField;
     @FXML private TextField paidField;
+    @FXML private TextField creditField;
     @FXML private Label currentBalanceLabel;
     @FXML private Button saveButton;
     @FXML private Button cancelButton;
 
-    private CustomerDAO customerDAO = new CustomerDAOImpl();
-    private ProductDAO productDAO = new ProductDAOImpl();
-    private InvoiceService invoiceService = new InvoiceService(new InvoiceDAOImpl(), new LineItemDAOImpl(), new InventoryDAOImpl());
+    // Services & DAOs
+    private final ERPSystemFacade erp = new ERPSystemFacade();
+
+    private final ProductDAO productDAO = new ProductDAOImpl();
+    private final SupplierDAO supplierDAO = new AddSupplierService().getSupplierDAO();
+
+    // UI Data Models
     private ObservableList<LineItem> lineItems = FXCollections.observableArrayList();
-    private List<Customer> customers = new ArrayList<>();
+    private List<Supplier> suppliers = new ArrayList<>();
     private List<Product> products = new ArrayList<>();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setupCustomerComboBox();
+    @FXML
+    public void initialize() {
+        setupSupplierComboBox();
         setupProductComboBox();
         setupInvoiceTable();
         setupListeners();
     }
 
-    private void setupCustomerComboBox() {
-        customers = customerDAO.getAllCustomers();
-        ObservableList<String> customerNames = FXCollections.observableArrayList();
-        for (Customer customer : customers) {
-            customerNames.add(customer.getName());
-        }
-        customerComboBox.setItems(customerNames);
+    // Setup Supplier ComboBox
+    private void setupSupplierComboBox() {
+        suppliers = supplierDAO.getAllSuppliers();
+        ObservableList<Supplier> supplierList = FXCollections.observableArrayList(suppliers);
+        supplierComboBox.setItems(supplierList);
+
+        supplierComboBox.setConverter(new StringConverter<Supplier>() {
+            @Override
+            public String toString(Supplier supplier) {
+                return supplier != null ? supplier.getName() : "";
+            }
+
+            @Override
+            public Supplier fromString(String string) {
+                return suppliers.stream()
+                        .filter(s -> s.getName().equals(string))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
     }
 
+    // Setup Product ComboBox
     private void setupProductComboBox() {
         products = productDAO.getAll();
         ObservableList<Product> productList = FXCollections.observableArrayList(products);
         productComboBox.setItems(productList);
+
         productComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Product product) {
@@ -81,19 +100,21 @@ public class NewPurchaseInvoiceController implements Initializable {
             @Override
             public Product fromString(String string) {
                 return products.stream()
-                        .filter(product -> product.getName().equals(string))
+                        .filter(p -> p.getName().equals(string))
                         .findFirst()
                         .orElse(null);
             }
         });
     }
 
+    // Setup Invoice Table View
     private void setupInvoiceTable() {
         productCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductName()));
         quantityCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
         priceCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getUnitPrice()).asObject());
         amountCol.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTotal()).asObject());
 
+        // Remove Button Column
         removeCol.setCellFactory(param -> new TableCell<>() {
             private final Button btn = new Button("X");
 
@@ -119,6 +140,7 @@ public class NewPurchaseInvoiceController implements Initializable {
         invoiceTable.setItems(lineItems);
     }
 
+    // Input Listeners
     private void setupListeners() {
         productComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -134,25 +156,30 @@ public class NewPurchaseInvoiceController implements Initializable {
                     double amount = product.getPrice() * qty;
                     amountField.setText(String.format("%.2f", amount));
                 }
-            } catch (NumberFormatException ignored) {
-            }
+            } catch (NumberFormatException ignored) {}
         });
     }
 
+    // Handle Add Row Button
     @FXML
     private void handleAddRow(ActionEvent event) {
         Product product = productComboBox.getValue();
         String qtyStr = quantityField.getText();
 
-        if (product == null || qtyStr.isEmpty()) {
-            showAlert("Missing Data", "Please select a product and enter quantity.");
+        if (product == null) {
+            showAlert("Missing Product", "Please select a product.");
+            return;
+        }
+
+        if (qtyStr.isEmpty()) {
+            showAlert("Missing Quantity", "Please enter a quantity.");
             return;
         }
 
         try {
             int qty = Integer.parseInt(qtyStr);
-            if (qty <= 0 || qty > product.getStock()) {
-                showAlert("Invalid Quantity", "Please enter a valid quantity in stock.");
+            if (qty <= 0) {
+                showAlert("Invalid Quantity", "Please enter a valid positive quantity.");
                 return;
             }
 
@@ -163,50 +190,41 @@ public class NewPurchaseInvoiceController implements Initializable {
             lineItem.setTotal(qty * product.getPrice());
 
             lineItems.add(lineItem);
-            product.setStock(product.getStock() - qty);
             clearEntryFields();
             updateTotals();
         } catch (NumberFormatException e) {
-            showAlert("Invalid Input", "Quantity must be a valid number.");
+            showAlert("Invalid Input", "Quantity must be a number.");
         }
     }
 
+    // Handle Save Button
     @FXML
     private void handleSaveInvoice(ActionEvent event) {
-        String selectedCustomer = customerComboBox.getValue();
-        Customer customerselected = customerDAO.getCustomerByName(selectedCustomer);
-        int customerId = customerselected.getId();
+        Supplier selectedSupplier = supplierComboBox.getValue();
         LocalDate date = datePicker.getValue();
 
-        if (selectedCustomer == null || date == null || lineItems.isEmpty()) {
+        if (selectedSupplier == null || date == null || lineItems.isEmpty()) {
             showAlert("Missing Data", "Please fill all required fields.");
             return;
         }
 
         try {
-            Customer customer = customers.stream()
-                    .filter(c -> c.getName().equals(selectedCustomer))
-                    .findFirst()
-                    .orElse(null);
-
-            if (customer == null) {
-                showAlert("Invalid Customer", "Selected customer does not exist.");
-                return;
-            }
-
-            invoiceService.saveInvoice(customer, customerId, date, new ArrayList<>(lineItems), "PURCHASE");
-            showAlert("Success", "Invoice saved successfully!");
+            erp.createPurchaseInvoice(selectedSupplier, selectedSupplier.getId(), date, lineItems);
+            showAlert("Success", "Purchase Invoice saved successfully!");
             clearForm();
         } catch (Exception e) {
-            showAlert("Error", "Failed to save the invoice. Please try again.");
+            showAlert("Error", "Failed to save purchase invoice.");
+            e.printStackTrace(); // Optional: remove in production
         }
     }
 
+    // Handle Cancel Button
     @FXML
     private void handleCancel(ActionEvent event) {
         clearForm();
     }
 
+    // Helper Methods
     private void clearEntryFields() {
         productComboBox.getSelectionModel().clearSelection();
         quantityField.clear();
@@ -215,7 +233,7 @@ public class NewPurchaseInvoiceController implements Initializable {
     }
 
     private void clearForm() {
-        customerComboBox.getSelectionModel().clearSelection();
+        supplierComboBox.getSelectionModel().clearSelection();
         datePicker.setValue(null);
         lineItems.clear();
         paidField.clear();
@@ -235,9 +253,7 @@ public class NewPurchaseInvoiceController implements Initializable {
     }
 
     private double parseInput(String value) {
-        if (value == null || value.isEmpty()) {
-            return 0.0;
-        }
+        if (value == null || value.isEmpty()) return 0.0;
         try {
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
