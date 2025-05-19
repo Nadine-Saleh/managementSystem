@@ -15,6 +15,7 @@ public class PurchaseInvoiceDAOImpl implements PurchaseInvoiceDAO {
     private static final String DELETE_SQL = "DELETE FROM purchaseInvoice WHERE id = ?";
     private static final String SELECT_BY_ID = "SELECT * FROM purchaseInvoice WHERE id = ?";
     private static final String SELECT_ALL = "SELECT * FROM purchaseInvoice";
+    private static final String SEARCH_BY_SUPPLIER_NAME = "SELECT * FROM purchaseInvoice WHERE supplier_name LIKE ?";
 
     @Override
     public int save(PurchaseInvoice invoice) {
@@ -81,14 +82,15 @@ public class PurchaseInvoiceDAOImpl implements PurchaseInvoiceDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                PurchaseInvoice invoice = new PurchaseInvoice();
-                invoice.setId(rs.getInt("id"));
-                invoice.setSupplierName(rs.getString("supplier_name"));
-                invoice.setSupplierId(rs.getInt("supplier_id"));
-                invoice.setCreatedAt(LocalDate.parse(rs.getString("date")));
-                invoice.setTotalAmount(rs.getDouble("total_amount"));
-                invoice.setType(rs.getString("type"));
-                return invoice;
+                PurchaseInvoice inv = new PurchaseInvoice();
+                inv.setId(rs.getInt("id"));
+                inv.setSupplierName(rs.getString("supplier_name"));
+                inv.setSupplierId(rs.getInt("supplier_id"));
+                inv.setCreatedAt(LocalDate.parse(rs.getString("date")));
+                inv.setTotalAmount(rs.getDouble("total_amount"));
+                inv.setType(rs.getString("type"));
+
+                return inv;
             }
 
         } catch (SQLException e) {
@@ -105,6 +107,34 @@ public class PurchaseInvoiceDAOImpl implements PurchaseInvoiceDAO {
              ResultSet rs = stmt.executeQuery(SELECT_ALL)) {
 
             while (rs.next()) {
+                PurchaseInvoice inv = new PurchaseInvoice();
+                inv.setId(rs.getInt("id"));
+                inv.setSupplierName(rs.getString("supplier_name"));
+                inv.setSupplierId(rs.getInt("supplier_id"));
+                inv.setCreatedAt(LocalDate.parse(rs.getString("date")));
+                inv.setTotalAmount(rs.getDouble("total_amount"));
+                inv.setType(rs.getString("type"));
+
+                invoices.add(inv);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching all purchase invoices", e);
+        }
+        return invoices;
+    }
+
+    @Override
+    public List<PurchaseInvoice> searchBySupplierName(String keyword) {
+        List<PurchaseInvoice> invoices = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SEARCH_BY_SUPPLIER_NAME)) {
+
+            stmt.setString(1, "%" + keyword + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
                 PurchaseInvoice invoice = new PurchaseInvoice();
                 invoice.setId(rs.getInt("id"));
                 invoice.setSupplierName(rs.getString("supplier_name"));
@@ -117,8 +147,9 @@ public class PurchaseInvoiceDAOImpl implements PurchaseInvoiceDAO {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching all purchase invoices", e);
+            throw new RuntimeException("Error searching purchase invoices by supplier name", e);
         }
+
         return invoices;
     }
 }

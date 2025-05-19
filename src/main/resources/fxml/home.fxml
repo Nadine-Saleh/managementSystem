@@ -64,7 +64,7 @@
                </children>
             </StackPane>
          </children></AnchorPane>
-      <AnchorPane layoutX="150.0" layoutY="89.0" prefHeight="354.0" prefWidth="590.0" style="-fx-background-color: #FEFAE0;">
+      <AnchorPane layoutX="145.0" layoutY="79.0" prefHeight="454.0" prefWidth="590.0" style="-fx-background-color: #FEFAE0;">
          <children>
             <VBox layoutX="433.0" layoutY="22.0" prefHeight="123.0" prefWidth="128.0">
                <children>
@@ -81,7 +81,7 @@
                   <Label prefHeight="25.0" prefWidth="128.0" text="          Add payment" />
                </children>
             </VBox>
-            <VBox layoutX="37.0" layoutY="195.0" prefHeight="123.0" prefWidth="128.0">
+            <VBox layoutX="433.0" layoutY="186.0" prefHeight="123.0" prefWidth="128.0">
                <children>
                   <StackPane prefHeight="92.0" prefWidth="106.0">
                      <children>
@@ -141,7 +141,7 @@
                   <Label prefHeight="25.0" prefWidth="128.0" text="      Purchase invoices" />
                </children>
             </VBox>
-            <VBox layoutX="442.0" layoutY="195.0" prefHeight="106.0" prefWidth="118.0">
+            <VBox layoutX="41.0" layoutY="333.0" prefHeight="106.0" prefWidth="118.0">
                <children>
                   <StackPane prefHeight="97.0" prefWidth="140.0">
                      <children>
@@ -156,6 +156,21 @@
                   <Label prefHeight="25.0" prefWidth="128.0" text="           Inventory" />
                </children>
             </VBox>
+            <VBox layoutX="24.0" layoutY="182.0" prefHeight="132.0" prefWidth="128.0">
+               <children>
+                  <StackPane prefHeight="75.0" prefWidth="90.0">
+                     <children>
+                        <ImageView fitHeight="57.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/NewCustomer.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="addSupplierbtn1" mnemonicParsing="false" onAction="#openAddSupplier" prefHeight="77.0" prefWidth="92.0" style="-fx-background-color: transparent;" />
+                     </children>
+                  </StackPane>
+                  <Label prefHeight="25.0" prefWidth="128.0" text="      Add supplier" />
+               </children>
+            </VBox>
          </children>
 
       </AnchorPane>
@@ -166,13 +181,9 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="notificationButton"
-                    onAction="#showNotifications"
-                    layoutX="660.0" layoutY="10.0"
-                    prefWidth="30.0" prefHeight="30.0"
-                    style="-fx-background-color: transparent;">
+            <Button fx:id="notificationButton" layoutX="660.0" layoutY="10.0" onAction="#showNotifications" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                  <ImageView fitHeight="24" fitWidth="24" preserveRatio="true">
                      <image>
                         <Image url="@../Images/bellicon.png" />
                      </image>

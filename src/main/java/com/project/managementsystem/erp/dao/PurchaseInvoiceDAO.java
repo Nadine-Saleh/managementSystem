@@ -11,4 +11,5 @@ public interface PurchaseInvoiceDAO {
     void delete(int id);
     PurchaseInvoice getById(int id);
     List<PurchaseInvoice> getAll();
+    List<PurchaseInvoice> searchBySupplierName(String keyword);
 }
