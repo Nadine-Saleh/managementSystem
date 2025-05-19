@@ -24,6 +24,32 @@ public class ProductDAOImpl implements ProductDAO {
      * Inserts a new product into the database.
      */
     @Override
+    public List<Product> getAllProducts() {
+        List<Product> productList = new ArrayList<>();
+        String query = "SELECT * FROM Product";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getInt("quantity")
+                );
+                productList.add(p);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching all products", e);
+        }
+
+        return productList;
+    }
+
+    @Override
     public void save(Product product) {
         if (product.getCreatedAt() == null || product.getCreatedAt().isEmpty()) {
             product.setCreatedAt(TimeUtils.formatCurrentDateTime());
@@ -78,7 +104,7 @@ public class ProductDAOImpl implements ProductDAO {
                         rs.getInt("quantity"),
                         rs.getString("category"),
                         rs.getString("unit"),
-                        rs.getString("created_at")
+                        rs.getString("createdAt")
                 );
             }
 

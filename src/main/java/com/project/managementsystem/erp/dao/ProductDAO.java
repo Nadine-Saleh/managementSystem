@@ -16,6 +16,7 @@ public interface ProductDAO {
      * @param product The product to be saved.
      */
     void save(Product product);
+    List<Product> getAllProducts();
 
     /**
      * Retrieves a product by its unique ID.
