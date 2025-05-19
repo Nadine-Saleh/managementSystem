@@ -25,8 +25,8 @@
             <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="New Purchase Invoice" />
             <HBox spacing="10">
                <children>
-                  <Label text="Customer:" />
-                  <ComboBox fx:id="customerComboBox" prefWidth="200" promptText="Select Customer" />
+                  <Label text="Supplier" />
+                  <ComboBox fx:id="supplierComboBox" prefWidth="200" promptText="Select supplierer" />
                   <Label text="Date:" />
                   <DatePicker fx:id="datePicker" />
                </children>

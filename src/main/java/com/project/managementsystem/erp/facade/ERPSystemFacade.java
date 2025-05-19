@@ -7,8 +7,12 @@ import com.project.managementsystem.erp.services.*;
 import com.project.managementsystem.erp.models.*;
 
 
+import java.time.LocalDate;
 import java.util.List;
-
+import com.project.managementsystem.erp.services.PurchaseInvoiceService;
+import com.project.managementsystem.erp.dao.PurchaseInvoiceDAOImpl;
+import com.project.managementsystem.erp.dao.LineItemDAOImpl;
+import com.project.managementsystem.erp.dao.InventoryDAOImpl;
 /**
  * Facade class that provides a simplified interface to the ERP system.
  * Combines product, inventory, customer, and invoice operations into one class.
@@ -20,12 +24,17 @@ public class ERPSystemFacade {
   private final ProductService productService;
   private final PaymentService paymentService;
     private final AddCustomerService addcustomerService;
+    private final PurchaseInvoiceService purchaseInvoiceService;
 //    private final DefaultInvoiceService invoiceService;
 
     /**
      * Constructor initializes all services with their DAO implementations.
      */
     public ERPSystemFacade() {
+        this.purchaseInvoiceService = new PurchaseInvoiceService(
+                new PurchaseInvoiceDAOImpl(),
+                new LineItemDAOImpl()
+        );
         this.productService = new ProductService();
         this.paymentService = new PaymentService();
 //        this.inventoryService = new DefaultInventoryService(new InventoryDAOImpl());
@@ -55,7 +64,11 @@ public class ERPSystemFacade {
     public void deleteProduct(int id) {
 //        productService.delete(id);
     }
+    // === Purchase invoices METHODS ===
+    public void createPurchaseInvoice(Supplier supplier, int supplierId, LocalDate date, List<LineItem> items) throws Exception {
+        purchaseInvoiceService.createPurchaseInvoice(supplier, supplierId, date, items);
 
+    }
     // === PAYMENT METHODS ===
 
     public void addPayment(Payment payment) {

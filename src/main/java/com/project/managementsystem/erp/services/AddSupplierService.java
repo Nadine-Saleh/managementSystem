@@ -45,4 +45,7 @@ public class AddSupplierService {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return Pattern.compile(emailRegex).matcher(email).matches();
     }
+    public SupplierDAO getSupplierDAO() {
+        return supplierDAO;
+    }
 }
