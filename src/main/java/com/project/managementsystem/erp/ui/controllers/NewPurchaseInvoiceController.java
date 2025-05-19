@@ -1,7 +1,6 @@
 package com.project.managementsystem.erp.ui.controllers;
 
 import com.project.managementsystem.erp.dao.*;
-
 import com.project.managementsystem.erp.models.*;
 import com.project.managementsystem.erp.facade.ERPSystemFacade;
 
@@ -14,8 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ public class NewPurchaseInvoiceController {
 
     // Services & DAOs
     private final ERPSystemFacade erp = new ERPSystemFacade();
-
     private final ProductDAO productDAO = new ProductDAOImpl();
     private final SupplierDAO supplierDAO = new AddSupplierService().getSupplierDAO();
 
@@ -65,11 +63,17 @@ public class NewPurchaseInvoiceController {
 
     // Setup Supplier ComboBox
     private void setupSupplierComboBox() {
-        suppliers = supplierDAO.getAllSuppliers();
+        try {
+            suppliers = supplierDAO.getAllSuppliers();
+        } catch (Exception e) {
+            System.err.println("Failed to load suppliers");
+            e.printStackTrace();
+        }
+
         ObservableList<Supplier> supplierList = FXCollections.observableArrayList(suppliers);
         supplierComboBox.setItems(supplierList);
 
-        supplierComboBox.setConverter(new StringConverter<Supplier>() {
+        supplierComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Supplier supplier) {
                 return supplier != null ? supplier.getName() : "";
@@ -209,12 +213,14 @@ public class NewPurchaseInvoiceController {
         }
 
         try {
+            // ✅ This will now skip inventory logic
             erp.createPurchaseInvoice(selectedSupplier, selectedSupplier.getId(), date, lineItems);
+
             showAlert("Success", "Purchase Invoice saved successfully!");
             clearForm();
         } catch (Exception e) {
             showAlert("Error", "Failed to save purchase invoice.");
-            e.printStackTrace(); // Optional: remove in production
+            e.printStackTrace(); // 👈 This helps you see what went wrong
         }
     }
 

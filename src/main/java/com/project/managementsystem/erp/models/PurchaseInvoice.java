@@ -10,8 +10,8 @@ public class PurchaseInvoice {
     private int supplierId;
     private LocalDate createdAt;
     private double totalAmount;
-    private String type; // ← Added field
     private List<LineItem> items;
+    private String type;
 
     public int getId() {
         return id;
@@ -53,21 +53,20 @@ public class PurchaseInvoice {
         this.totalAmount = totalAmount;
     }
 
-    // ✅ Add these two methods
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public List<LineItem> getItems() {
         return items;
     }
 
     public void setItems(List<LineItem> items) {
         this.items = items;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
