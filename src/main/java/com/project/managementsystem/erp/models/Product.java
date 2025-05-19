@@ -36,6 +36,17 @@ public class Product implements Subject {
         this.unit = unit;
         this.createdAt = createdAt;
     }
+    public Product( String name,
+                   double price, int quantity, String category,
+                   String unit,
+                   String createdAt) {
+        this.name = name;
+        this.price = price;
+        this.quantity=quantity;
+        this.category = category;
+        this.unit = unit;
+        this.createdAt = createdAt;
+    }
     public Product(int id, String name, double price, int quantity) {
         this.id = id;
         this.name = name;
@@ -47,13 +58,12 @@ public class Product implements Subject {
     // Getters and Setters
 
     public Product() {
-        //TODO Auto-generated constructor stub
     }
 
-    public Product(String trim, double price2, int quantity2, String selectedCategory, String selectedUnit,
-            String string) {
-        //TODO Auto-generated constructor stub
-    }
+    // public Product(String trim, double price2, int quantity2, String selectedCategory, String selectedUnit,
+    //         String string) {
+    //     //TODO Auto-generated constructor stub
+    // }
     // Observer pattern methods
     @Override
     public void attach(Observer observer) {
