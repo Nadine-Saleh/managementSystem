@@ -114,9 +114,10 @@ public class ProductController {
         txtName.clear();
         txtPrice.setText("0");
         txtQuantity.setText("0");
-        comboCategory.getSelectionModel().clearSelection();
-        comboUnit.getSelectionModel().clearSelection();
+        comboCategory.setValue("Stationery");
+        comboUnit.setValue("Piece");
     }
+
 
     /**
      * Closes the current window.

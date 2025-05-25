@@ -1,6 +1,7 @@
 package com.project.managementsystem.erp.facade;
 
 
+import com.project.managementsystem.erp.dao.InvoiceDAOImpl;
 import com.project.managementsystem.erp.services.*;
 
 
@@ -132,4 +133,15 @@ public class ERPSystemFacade {
 //    public void deleteInvoice(int id) {
 //        InvoiceService.delete(id);
 //    }
+private final InvoiceService invoiceService = new InvoiceService(
+        new InvoiceDAOImpl(),
+        new LineItemDAOImpl(),
+        new InventoryDAOImpl()
+);
+
+    public InvoiceService getInvoiceService() {
+        return invoiceService;
+    }
+
+
 }

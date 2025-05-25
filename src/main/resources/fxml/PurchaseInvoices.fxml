@@ -25,8 +25,8 @@
          </font>
       </Label>
       <TextField fx:id="searchBysupplierName" layoutX="41.0" layoutY="93.0" prefHeight="26.0" prefWidth="179.0" promptText="search by supplier name" />
-      <TableView layoutX="81.0" layoutY="153.0" prefHeight="210.0" prefWidth="610.0">
-         <columns>
+      <TableView fx:id="invoicesTable" layoutX="81.0" layoutY="153.0" prefHeight="210.0" prefWidth="610.0">
+      <columns>
             <TableColumn fx:id="invoiceNum" prefWidth="68.79998779296875" text="Number" />
             <TableColumn fx:id="invoiceSupplier" prefWidth="200.79998779296875" text="supplier" />
             <TableColumn fx:id="invoiceDate" prefWidth="186.4000244140625" text="Date" />

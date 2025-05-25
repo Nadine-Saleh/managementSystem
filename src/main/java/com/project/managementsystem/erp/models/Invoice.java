@@ -13,6 +13,9 @@ public class Invoice {
     private String customerName;
     private LocalDate createdAt;
     private double totalAmount;
+    private Supplier supplier;
+    private int supplierId;
+    private String supplierName;
 
     private String Type;
     private int customerId;
@@ -164,4 +167,29 @@ public class Invoice {
 
                 '}';
     }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public int getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
 }

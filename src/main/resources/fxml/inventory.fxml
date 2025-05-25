@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.project.managementsystem.erp.ui.controllers.InventoryController" prefWidth="800.0" prefHeight="500.0">
+    <children>
+        <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="20.0" prefWidth="760.0" prefHeight="400.0">
+            <columns>
+                <TableColumn fx:id="productNameCol" text="Product Name" prefWidth="150.0"/>
+                <TableColumn fx:id="changeTypeCol" text="Change Type" prefWidth="100.0"/>
+                <TableColumn fx:id="quantityChangeCol" text="Qty Change" prefWidth="100.0"/>
+                <TableColumn fx:id="currentStockCol" text="Current Stock" prefWidth="120.0"/>
+                <TableColumn fx:id="timestampCol" text="Timestamp" prefWidth="170.0"/>
+                <TableColumn fx:id="referenceTypeCol" text="Ref Type" prefWidth="120.0"/>
+            </columns>
+        </TableView>
+
+        <Button fx:id="refreshBtn" layoutX="350.0" layoutY="440.0" mnemonicParsing="false" text="Refresh" onAction="#handleRefresh"/>
+    </children>
+</AnchorPane>

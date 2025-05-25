@@ -46,4 +46,6 @@ public interface ProductDAO {
      * @param id The ID of the product to delete.
      */
     void delete(int id);
+    Product getProductById(int id);
+
 }

@@ -175,25 +175,20 @@ public class InventoryDAOImpl implements InventoryDAO {
      */
     @Override
     public int getCurrentStockByProductId(int productId) {
-        int stock = 0;
-        String sql = "SELECT SUM(quantityChange) AS total FROM inventory WHERE productId = ?";
-
+        String sql = "SELECT quantity FROM Product WHERE id = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
-
             stmt.setInt(1, productId);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
-                stock = rs.getInt("total");
+                return rs.getInt("quantity");
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException("Error calculating stock for product ID: " + productId, e);
+            throw new RuntimeException("Error fetching stock", e);
         }
-
-        return stock;
+        return 0;
     }
+
 
     /**
      * Utility method to map ResultSet to Inventory object

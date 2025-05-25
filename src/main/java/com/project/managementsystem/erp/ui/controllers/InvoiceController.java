@@ -16,7 +16,9 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InvoiceController {
 
@@ -180,15 +182,16 @@ public class InvoiceController {
             }
 
             LineItem lineItem = new LineItem();
-            lineItem.setProductId(product.getId()); // ✅ Critical
+            lineItem.setProductId(product.getId());
             lineItem.setProduct(product);
             lineItem.setQuantity(qty);
             lineItem.setTotal(qty * product.getPrice());
 
             lineItems.add(lineItem);
-            product.setStock(product.getStock() - qty); // Deduct from inventory
+
             clearEntryFields();
             updateTotals();
+
         } catch (NumberFormatException e) {
             showAlert("Invalid Input", "Quantity must be a valid number.");
         }
@@ -198,9 +201,9 @@ public class InvoiceController {
     private void handleSaveInvoice(ActionEvent event) {
         String selectedCustomer = customerComboBox.getValue();
         Customer customerselected = customerDAO.getCustomerByName(selectedCustomer);
-        int customerId =customerselected.getId();  ;
-        // System.out.println(productComboBox.getValue());
+        int customerId = customerselected.getId();
         LocalDate date = datePicker.getValue();
+
         if (selectedCustomer == null || date == null || lineItems.isEmpty()) {
             showAlert("Missing Data", "Please fill all required fields.");
             return;
@@ -217,10 +220,34 @@ public class InvoiceController {
                 return;
             }
 
-            invoiceService.saveInvoice(customer,customerId, date, new ArrayList<>(lineItems), "SALE");
+
+            Map<Integer, Integer> totalQuantities = new HashMap<>();
+            for (LineItem item : lineItems) {
+                totalQuantities.put(
+                        item.getProductId(),
+                        totalQuantities.getOrDefault(item.getProductId(), 0) + item.getQuantity()
+                );
+            }
+
+// ✅ نتأكد من المخزون من قاعدة البيانات
+            for (Map.Entry<Integer, Integer> entry : totalQuantities.entrySet()) {
+                int productId = entry.getKey();
+                int requestedQty = entry.getValue();
+
+                Product product = productDAO.getProductById(productId);
+                if (product.getStock() < requestedQty) {
+                    showAlert("Stock Error", "Not enough stock for product: " + product.getName());
+                    return;
+                }
+            }
+
+
+
+            invoiceService.saveInvoice(customer, customerId, date, new ArrayList<>(lineItems), "SALE");
             showAlert("Success", "Invoice saved successfully!");
             clearForm();
         } catch (Exception e) {
+            e.printStackTrace();
             showAlert("Error", "Failed to save the invoice. Please try again.");
         }
     }

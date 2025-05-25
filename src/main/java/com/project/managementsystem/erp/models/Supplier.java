@@ -5,6 +5,9 @@ public class Supplier {
     private String name;
     private String email;
     private String phone;
+    private Supplier supplier;
+    private int supplierId;
+    private String supplierName;
 
     public Supplier() {}
 
@@ -14,6 +17,30 @@ public class Supplier {
         this.email = email;
         this.phone = phone;
     }
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public int getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
 
     // Getters and Setters
     public int getId() {

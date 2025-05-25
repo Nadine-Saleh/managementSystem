@@ -213,16 +213,23 @@ public class NewPurchaseInvoiceController {
         }
 
         try {
-            // ✅ This will now skip inventory logic
-            erp.createPurchaseInvoice(selectedSupplier, selectedSupplier.getId(), date, lineItems);
+            // 💡 الحل: استدعاء دالة InvoiceService الحقيقية
+            erp.getInvoiceService().savePurchaseInvoice(
+                    selectedSupplier,
+                    selectedSupplier.getId(),
+                    date,
+                    new ArrayList<>(lineItems) // لو lineItems من نوع ObservableList
+            );
+
 
             showAlert("Success", "Purchase Invoice saved successfully!");
             clearForm();
         } catch (Exception e) {
             showAlert("Error", "Failed to save purchase invoice.");
-            e.printStackTrace(); // 👈 This helps you see what went wrong
+            e.printStackTrace();
         }
     }
+
 
     // Handle Cancel Button
     @FXML
