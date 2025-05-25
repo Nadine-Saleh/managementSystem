@@ -172,18 +172,21 @@ public class Home {
     private Button inventoryBtn;
 
     @FXML
-    void openInventoryView(ActionEvent event) {
+    private void openInventoryView(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/inventory.fxml"));
+            System.out.println("Path = " + getClass().getResource("/fxml/inventory.fxml"));
+
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Inventory");
             stage.setScene(new Scene(root));
+            stage.setTitle("Inventory");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void showNotifications() {
@@ -204,3 +207,4 @@ public class Home {
     }
 
 }
+

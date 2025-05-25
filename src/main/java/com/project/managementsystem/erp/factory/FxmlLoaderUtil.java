@@ -12,17 +12,14 @@ import java.io.IOException;
 
 public class FxmlLoaderUtil {
 
-    // فتح نافذة خيارات بناءً على نوع الفاتورة
     public static void openOptionsMenuWindow(Class<?> clazz, String fxmlPath, String title, String invoiceType) {
         try {
             FXMLLoader loader = new FXMLLoader(clazz.getResource("/" + fxmlPath));
             Parent root = loader.load();
 
-            // تمرير النوع للكنترولر
             OptionsMenuController controller = loader.getController();
             controller.initialize(invoiceType);
 
-            // إعداد النافذة
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));

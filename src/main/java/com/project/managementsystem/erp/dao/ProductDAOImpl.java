@@ -187,4 +187,30 @@ public class ProductDAOImpl implements ProductDAO {
             throw new RuntimeException("Error deleting product", e);
         }
     }
+    @Override
+    public Product getProductById(int id) {
+        String sql = "SELECT * FROM product WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(rs.getDouble("price"));
+                product.setStock(rs.getInt("quantity"));
+                product.setCategory(rs.getString("category"));
+                product.setUnit(rs.getString("unit"));
+                product.setCreatedAt(rs.getString("createdAt"));
+                return product;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

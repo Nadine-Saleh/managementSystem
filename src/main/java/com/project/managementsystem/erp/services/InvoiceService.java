@@ -1,10 +1,7 @@
 package com.project.managementsystem.erp.services;
 
 import com.project.managementsystem.erp.dao.*;
-import com.project.managementsystem.erp.models.Invoice;
-import com.project.managementsystem.erp.models.LineItem;
-import com.project.managementsystem.erp.models.Customer;
-import com.project.managementsystem.erp.models.Product;
+import com.project.managementsystem.erp.models.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -93,7 +90,7 @@ public class InvoiceService {
     /**
      * Deletes an invoice and its line items.
      *
-     * @param invoiceId ID of the invoice to delete
+     * @param invoiceId   ID of the invoice to delete
      * @param invoiceType "SALE" or "PURCHASE"
      * @return true if deleted successfully
      */
@@ -149,12 +146,12 @@ public class InvoiceService {
     /**
      * Saves an invoice along with its line items and updates inventory.
      *
-     * @param customer The customer associated with the invoice.
-     * @param date The date of the invoice.
+     * @param customer  The customer associated with the invoice.
+     * @param date      The date of the invoice.
      * @param lineItems The list of line items in the invoice.
      * @throws Exception If there is an error during the save process.
      */
-    public void saveInvoice(Customer customer, int customerId, LocalDate date, List<LineItem> lineItems , String type) throws Exception {
+    public void saveInvoice(Customer customer, int customerId, LocalDate date, List<LineItem> lineItems, String type) throws Exception {
         try {
             Invoice invoice = new Invoice();
             invoice.setCustomer(customer);
@@ -184,4 +181,33 @@ public class InvoiceService {
         }
     }
 
+    public void savePurchaseInvoice(Supplier supplier, int supplierId, LocalDate date, List<LineItem> lineItems) throws Exception {
+        try {
+            Invoice invoice = new Invoice();
+            invoice.setSupplier(supplier); // ممكن تشيلي دي لو مش محتاجاها
+            invoice.setSupplierId(supplierId);
+            invoice.setSupplierName(supplier.getName());
+            invoice.setCreatedAt(date);
+            invoice.setItems(lineItems);
+            invoice.setType("PURCHASE");
+
+            double totalAmount = lineItems.stream().mapToDouble(LineItem::getTotal).sum();
+            invoice.setTotalAmount(totalAmount);
+
+            int invoiceId = invoiceDAO.save(invoice);
+
+            for (LineItem lineItem : lineItems) {
+                lineItem.setInvoiceId(invoiceId);
+                lineItem.setType("PURCHASE");
+                lineItemDAO.addLineItem(lineItem);
+            }
+
+            updateInventoryFromLineItems(lineItems, invoiceId, "PURCHASE");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to save the purchase invoice: " + e.getMessage(), e);
+        }
     }
+}
+

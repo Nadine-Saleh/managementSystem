@@ -1,8 +1,8 @@
 package com.project.managementsystem.erp.dao;
 
 import com.project.managementsystem.erp.config.DBConnection;
-import com.project.managementsystem.erp.dao.InvoiceDAO;
 import com.project.managementsystem.erp.models.Invoice;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,16 +14,13 @@ import java.util.List;
 public class InvoiceDAOImpl implements InvoiceDAO {
 
     // SQL Statements
-    private static final String INSERT_INVOICE = "INSERT INTO invoices(Customer_id, customer_name, date, total_amount, type) VALUES (?, ?, ?, ?,?)";
-    private static final String UPDATE_INVOICE = "UPDATE invoices SET customer_name = ?, date = ?, total_amount = ?, type = ? WHERE id = ?";
+    private static final String INSERT_INVOICE = "INSERT INTO invoices (customer_id, customer_name, supplier_id, supplier_name, created_at, total_amount, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_INVOICE = "UPDATE invoices SET customer_name = ?, created_at = ?, total_amount = ?, type = ? WHERE id = ?";
     private static final String DELETE_INVOICE = "DELETE FROM invoices WHERE id = ?";
     private static final String SELECT_INVOICE_BY_ID = "SELECT * FROM invoices WHERE id = ?";
     private static final String SELECT_ALL_INVOICES = "SELECT * FROM invoices";
     private static final String SELECT_INVOICES_BY_TYPE = "SELECT * FROM invoices WHERE type = ?";
 
-    /**
-     * Adds a new invoice to the database.
-     */
     @Override
     public int save(Invoice invoice) {
         try (Connection connection = DBConnection.getConnection();
@@ -31,9 +28,11 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
             stmt.setInt(1, invoice.getCustomerId());
             stmt.setString(2, invoice.getCustomerName());
-            stmt.setString(3, String.valueOf(invoice.getCreatedAt()));
-            stmt.setDouble(4, invoice.getTotalAmount());
-            stmt.setString(5, invoice.getType());
+            stmt.setInt(3, invoice.getSupplierId());
+            stmt.setString(4, invoice.getSupplierName());
+            stmt.setString(5, invoice.getCreatedAt().toString());
+            stmt.setDouble(6, invoice.getTotalAmount());
+            stmt.setString(7, invoice.getType());
 
             int affectedRows = stmt.executeUpdate();
 
@@ -56,9 +55,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         }
     }
 
-    /**
-     * Updates an existing invoice in the database.
-     */
     @Override
     public void update(Invoice invoice) {
         try (Connection connection = DBConnection.getConnection();
@@ -80,9 +76,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         }
     }
 
-    /**
-     * Deletes an invoice by ID.
-     */
     @Override
     public void delete(int id) {
         try (Connection connection = DBConnection.getConnection();
@@ -100,9 +93,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         }
     }
 
-    /**
-     * Retrieves an invoice by ID.
-     */
     @Override
     public Invoice getById(int id) {
         try (Connection connection = DBConnection.getConnection();
@@ -121,9 +111,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return null;
     }
 
-    /**
-     * Retrieves all invoices from the database.
-     */
     @Override
     public List<Invoice> getAll() {
         List<Invoice> invoices = new ArrayList<>();
@@ -143,9 +130,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return invoices;
     }
 
-    /**
-     * Retrieves invoices by type ("SALE" or "PURCHASE").
-     */
     @Override
     public List<Invoice> getByType(String type) {
         List<Invoice> invoices = new ArrayList<>();
@@ -167,24 +151,17 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return invoices;
     }
 
-    /**
-     * Utility method to map a ResultSet row to an Invoice object.
-     */
     private Invoice mapResultSetToInvoice(ResultSet rs) throws SQLException {
         Invoice invoice = new Invoice();
         invoice.setId(rs.getInt("id"));
         invoice.setCustomerId(rs.getInt("customer_id"));
         invoice.setCustomerName(rs.getString("customer_name"));
-        invoice.setCreatedAt(LocalDate.parse(rs.getString("date")));
+        invoice.setCreatedAt(LocalDate.parse(rs.getString("created_at"))); // ✅ تم التعديل هنا
         invoice.setTotalAmount(rs.getDouble("total_amount"));
         invoice.setType(rs.getString("type"));
 
-        // Optional: Load line items here if needed
-        // invoice.setItems(lineItemDAO.getLineItemsByInvoiceId(invoice.getId(), invoice.getType()));
-
         return invoice;
     }
-
 
     @Override
     public List<Invoice> searchByCustomerName(String keyword) {
@@ -201,7 +178,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 Invoice invoice = new Invoice(
                         rs.getInt("id"),
                         rs.getString("customer_name"),
-                        LocalDate.parse(rs.getString("date")),
+                        LocalDate.parse(rs.getString("created_at")),
                         rs.getDouble("total_amount"),
                         rs.getString("type")
                 );
@@ -214,5 +191,4 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
         return invoices;
     }
-
 }
